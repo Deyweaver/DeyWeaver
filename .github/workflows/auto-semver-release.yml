@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - master
-      
+
 permissions:
   contents: write
-  
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -34,14 +34,10 @@ jobs:
         id: bump
         run: |
           TAG=${{ env.LATEST_TAG }}
-          # Extract major, minor, patch
           MAJOR=$(echo $TAG | cut -d. -f1 | tr -d 'v')
           MINOR=$(echo $TAG | cut -d. -f2)
           PATCH=$(echo $TAG | cut -d. -f3)
-
-          # Increment patch
           PATCH=$((PATCH + 1))
-
           NEW_VERSION="v$MAJOR.$MINOR.$PATCH"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
           echo "New version: $NEW_VERSION"
@@ -59,16 +55,18 @@ jobs:
         run: |
           BADGE_URL="https://img.shields.io/badge/version-${{ env.NEW_VERSION }}-orange"
           README_FILE="README.md"
-
-          if grep -q "version-" $README_FILE; then
-            sed -i "s|!\[version\].*|![version]($BADGE_URL)|" $README_FILE
+          # Check if the badge already exists with the new version
+          if grep -q "version-${{ env.NEW_VERSION }}" $README_FILE; then
+            echo "Badge is already up-to-date."
           else
-            # Insert badge at the top of README
-            sed -i "1i![version]($BADGE_URL)" $README_FILE
+            if grep -q "version-" $README_FILE; then
+              sed -i "s|!\[version\].*|![version]($BADGE_URL)|" $README_FILE
+            else
+              sed -i "1i![version]($BADGE_URL)" $README_FILE
+            fi
+            git add $README_FILE
+            git commit -m "Update version badge to ${{ env.NEW_VERSION }}"
+            git push origin master
           fi
-
-          git add $README_FILE
-          git commit -m "Update version badge to ${{ env.NEW_VERSION }}" || echo "No changes to commit"
-          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
