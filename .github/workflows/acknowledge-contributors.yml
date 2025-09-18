@@ -1,0 +1,65 @@
+name: Acknowledge Contributor
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write  # Allows git push
+
+jobs:
+  acknowledge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+
+      - name: Extract username from issue body
+        id: extract
+        run: |
+          # Extract first GitHub username mentioned with @
+          USERNAME=$(jq -r '.issue.body' "$GITHUB_EVENT_PATH" | grep -o '@[a-zA-Z0-9_-]\+' | head -n 1)
+          if [ -z "$USERNAME" ]; then
+            echo "No username found."
+            exit 0
+          fi
+          USERNAME=${USERNAME#"@"}  # remove @
+          echo "username=$USERNAME" >> $GITHUB_OUTPUT
+
+      - name: Fetch contributor info
+        id: userinfo
+        run: |
+          USERNAME=${{ steps.extract.outputs.username }}
+          NAME=$(curl -s https://api.github.com/users/$USERNAME | jq -r .name)
+          # fallback if no name set on GitHub
+          if [ "$NAME" == "null" ] || [ -z "$NAME" ]; then
+            NAME=$USERNAME
+          fi
+          EMAIL="$USERNAME@users.noreply.github.com"
+          echo "name=$NAME" >> $GITHUB_OUTPUT
+          echo "email=$EMAIL" >> $GITHUB_OUTPUT
+
+      - name: Commit acknowledgment
+        run: |
+          NAME=${{ steps.userinfo.outputs.name }}
+          EMAIL=${{ steps.userinfo.outputs.email }}
+          USERNAME=${{ steps.extract.outputs.username }}
+
+          # Ensure file exists
+          touch ACKNOWLEDGMENTS.md
+          
+          # Avoid duplicates
+          if ! grep -q "@$USERNAME" ACKNOWLEDGMENTS.md; then
+            echo "- Thanks @$USERNAME for contributing!" >> ACKNOWLEDGMENTS.md
+            git add ACKNOWLEDGMENTS.md
+            git commit -m "Acknowledge @$USERNAME contribution" --author="$NAME <$EMAIL>"
+            git push
+          else
+            echo "@$USERNAME is already acknowledged."
+          fi
