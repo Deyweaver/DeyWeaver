@@ -1,0 +1,33 @@
+# .github/config.yml
+
+# 👋 Message for new issues from first-time contributors
+newIssueWelcomeComment: >
+  🙏 Hey there, thank you for opening your first issue on **DeyWeaver**!  
+  You’re not just filing an issue — you’re helping us on our mission to make  
+  **free, ethical, and open-source AI tools for productivity**. 🌍💡  
+
+  We’re a nonprofit, so every contribution — no matter how small —  
+  truly helps students, professionals, and communities worldwide.  
+
+  Aryan (our founder) or one of our team members will reach out soon. 💜  
+
+# 🎉 Message for new PRs from first-time contributors
+newPRWelcomeComment: >
+  🎉 Wow — thank you for submitting your first pull request to **DeyWeaver**!  
+  By doing this, you’re actively helping build technology that stays  
+  **free forever** and accessible to everyone. 🌱  
+
+  We are a nonprofit, and your contribution is part of something bigger  
+  — making productivity and AI tools available to the world without paywalls.  
+
+  Our maintainers (Aryan or another staff member) will review this shortly.  
+
+# 🥳 Message for first merged PRs
+firstPRMergeComment: >
+  🥳 Congratulations on merging your first pull request with **DeyWeaver**!  
+  You are now officially part of our mission to provide  
+  **open, ethical AI for productivity** — free for students, professionals,  
+  and dreamers everywhere. ✨  
+
+  As a nonprofit, we couldn’t do this without amazing contributors like you.  
+  Thank you for standing with us in making a global impact. 🌍💜
