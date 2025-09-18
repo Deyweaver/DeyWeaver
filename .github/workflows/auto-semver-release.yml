@@ -22,18 +22,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Get latest tag
-        id: get_tag
+      - name: Get latest version from README
+        id: get_version
         run: |
-          # Get the latest Git tag, default to v0.0.0 if none exists
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          echo "Latest tag: $LATEST_TAG"
+          README_FILE="README.md"
+          # Extract version from badge, e.g., version-v0.0.1
+          if grep -q "version-v" $README_FILE; then
+            CURRENT_VERSION=$(grep -o "version-v[0-9]*\.[0-9]*\.[0-9]*" $README_FILE | head -1 | cut -d'-' -f2)
+          else
+            CURRENT_VERSION="v0.0.0"
+          fi
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+          echo "Current version: $CURRENT_VERSION"
 
       - name: Bump version (patch)
         id: bump
         run: |
-          TAG=${{ env.LATEST_TAG }}
+          TAG=${{ env.CURRENT_VERSION }}
           MAJOR=$(echo $TAG | cut -d. -f1 | tr -d 'v')
           MINOR=$(echo $TAG | cut -d. -f2)
           PATCH=$(echo $TAG | cut -d. -f3)
@@ -51,11 +56,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update version badge
+      - name: Update version badge in README
         run: |
           BADGE_URL="https://img.shields.io/badge/version-${{ env.NEW_VERSION }}-orange"
           README_FILE="README.md"
-          # Check if the badge already exists with the new version
           if grep -q "version-${{ env.NEW_VERSION }}" $README_FILE; then
             echo "Badge is already up-to-date."
           else
