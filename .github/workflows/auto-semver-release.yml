@@ -3,7 +3,7 @@ name: Auto Semantic Release
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   release:
