@@ -116,4 +116,4 @@ This project is made possible by the generous funding and support from these ama
 * **Notion:** We thank Notion for their guidance, helping us build a simpler planner experience, and for generously providing **free Notion Premium accounts to all the maintainers**.
 
 ---
-![version](https://img.shields.io/badge/version-v1.0.5-orange)
+![version](https://img.shields.io/badge/version-v1.0.6-orange)
