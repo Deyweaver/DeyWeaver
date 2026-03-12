@@ -64,6 +64,9 @@ const summarizePrFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await summarizePrPrompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('AI failed to generate a PR summary. Please try again.');
+    }
+    return output;
   }
 );
