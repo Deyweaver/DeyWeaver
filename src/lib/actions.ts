@@ -8,6 +8,12 @@ import {
 } from '@/ai/flows/create-schedule';
 
 import {
+  summarizePr as summarizePrFlow,
+  type SummarizePrInput,
+  type SummarizePrOutput
+} from '@/ai/flows/summarize-pr';
+
+import {
   analyzeTimeUsage as analyzeTimeUsageFlow,
   type AnalyzeTimeUsageInput,
   type AnalyzeTimeUsageOutput
@@ -81,6 +87,16 @@ export async function handlePredictBurnout(input: PredictBurnoutInput): Promise<
       message: "Error predicting burnout risk. Please monitor your well-being.",
       contributingFactors: ["Analysis service unavailable"]
     };
+  }
+}
+
+export async function handleSummarizePr(input: SummarizePrInput): Promise<SummarizePrOutput> {
+  try {
+    const result = await summarizePrFlow(input);
+    return result;
+  } catch (error) {
+    console.error('Error in handleSummarizePr:', error);
+    throw new Error('Failed to summarize pull request. Please try again.');
   }
 }
 

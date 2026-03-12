@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { ArrowRight, CalendarPlus, ListChecks, BarChart3, CalendarDays } from 'lucide-react';
+import { ArrowRight, CalendarPlus, ListChecks, BarChart3, CalendarDays, GitPullRequest } from 'lucide-react';
 
 export default function DashboardPage() {
   const features = [
@@ -33,6 +33,13 @@ export default function DashboardPage() {
       href: '/analytics',
       icon: <BarChart3 className="h-10 w-10 text-primary mb-4" />,
       cta: 'View Analytics',
+    },
+    {
+      title: 'Summarize a PR',
+      description: 'Paste any pull request details and get an AI-generated summary instantly.',
+      href: '/pr-summary',
+      icon: <GitPullRequest className="h-10 w-10 text-primary mb-4" />,
+      cta: 'Summarize PR',
     },
   ];
 

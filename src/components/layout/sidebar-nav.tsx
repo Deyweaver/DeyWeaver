@@ -12,6 +12,7 @@ import {
   LifeBuoy,
   BarChart3, // Added BarChart3 import
   MessagesSquare, // Added for Talk to Founder
+  GitPullRequest,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -28,6 +29,7 @@ const mainNavItems = [
   { href: '/tasks', label: 'My Tasks', icon: ListChecks },
   { href: '/calendar', label: 'Calendar', icon: CalendarDays },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/pr-summary', label: 'PR Summary', icon: GitPullRequest },
 ];
 
 const secondaryNavItems = [
