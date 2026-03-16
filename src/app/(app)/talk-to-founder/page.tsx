@@ -1,4 +1,6 @@
 
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
@@ -13,7 +15,7 @@ export default function TalkToFounderPage() {
         <CardHeader>
           <CardTitle className="text-3xl font-bold">Talk to the Founder</CardTitle>
           <CardDescription className="text-lg">
-            Share your thoughts and help shape Dey Weaver.
+            Share your thoughts and help shape Day Weaver.
           </CardDescription>
         </CardHeader>
       </Card>

@@ -1,0 +1,126 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  Home,
+  CheckSquare,
+  Calendar,
+  BarChart3,
+  Settings,
+  HelpCircle,
+  MessageSquare,
+  Zap,
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+interface NavItem {
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+  title?: string;
+}
+
+export function MinimalSidebar() {
+  const pathname = usePathname();
+
+  const navItems: NavItem[] = [
+    {
+      href: '/dashboard',
+      icon: <Home className="h-5 w-5" />,
+      label: 'Dashboard',
+      title: 'Dashboard',
+    },
+    {
+      href: '/tasks',
+      icon: <CheckSquare className="h-5 w-5" />,
+      label: 'Tasks',
+      title: 'Tasks',
+    },
+    {
+      href: '/schedule',
+      icon: <Calendar className="h-5 w-5" />,
+      label: 'Schedule',
+      title: 'Schedule',
+    },
+    {
+      href: '/breakdown',
+      icon: <Zap className="h-5 w-5" />,
+      label: 'Breakdown',
+      title: 'Breakdown',
+    },
+    {
+      href: '/analytics',
+      icon: <BarChart3 className="h-5 w-5" />,
+      label: 'Analytics',
+      title: 'Analytics',
+    },
+    {
+      href: '/meeting-prep',
+      icon: <MessageSquare className="h-5 w-5" />,
+      label: 'Meeting',
+      title: 'Meeting Prep',
+    },
+    {
+      href: '/help',
+      icon: <HelpCircle className="h-5 w-5" />,
+      label: 'Help',
+      title: 'Help',
+    },
+    {
+      href: '/settings',
+      icon: <Settings className="h-5 w-5" />,
+      label: 'Settings',
+      title: 'Settings',
+    },
+  ];
+
+  return (
+    <aside className="fixed left-0 top-0 h-screen w-20 bg-white border-r border-gray-200/50 flex flex-col items-center py-6 gap-4 z-40">
+      {/* Logo Area */}
+      <Link
+        href="/"
+        className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center hover:shadow-lg transition-shadow duration-300 text-white font-bold"
+        title="Home"
+      >
+        Dey
+      </Link>
+
+      {/* Navigation Items */}
+      <nav className="flex flex-col gap-2 flex-1">
+        {navItems.map((item) => {
+          const isActive =
+            pathname === item.href || pathname.startsWith(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              title={item.title}
+              className={cn(
+                'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300',
+                'hover:bg-gray-100 hover:shadow-md',
+                isActive
+                  ? 'bg-orange-100 text-orange-600 shadow-md'
+                  : 'text-gray-600 hover:text-gray-900'
+              )}
+            >
+              {item.icon}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Bottom Actions */}
+      <div className="flex flex-col gap-2 border-t border-gray-200 pt-4">
+        <button
+          title="Expand"
+          className="w-12 h-12 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 flex items-center justify-center"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+  );
+}

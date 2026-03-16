@@ -14,8 +14,8 @@ body {
     --card-foreground: 48 10% 20%;
     --popover: 48 20% 95%;
     --popover-foreground: 48 10% 20%;
-    --primary: 48 85% 50%; /* #F0C200 Vivid Gold */
-    --primary-foreground: 48 85% 10%; /* #302600 Dark text on primary */
+    --primary: 18 75% 55%; /* #F28500 Orange */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF White text on primary */
     --secondary: 48 30% 80%; /* #D7D3BF */
     --secondary-foreground: 48 10% 20%;
     --muted: 48 20% 85%; /* #E0DDCB */
@@ -26,23 +26,23 @@ body {
     --destructive-foreground: 0 0% 98%;
     --border: 48 20% 80%; /* #D1CEBE */
     --input: 48 20% 85%; /* #E0DDCB */
-    --ring: 48 85% 50%; /* #F0C200 For focus rings */
-    --chart-1: 48 85% 50%; /* primary */
-    --chart-2: 18 75% 55%; /* accent */
-    --chart-3: 48 50% 60%; /* lighter gold */
-    --chart-4: 25 60% 65%; /* lighter orange */
+    --ring: 18 75% 55%; /* #F28500 Orange For focus rings */
+    --chart-1: 18 75% 55%; /* orange */
+    --chart-2: 18 75% 65%; /* lighter orange */
+    --chart-3: 18 75% 50%; /* darker orange */
+    --chart-4: 25 60% 65%; /* related orange */
     --chart-5: 48 20% 70%; /* muted gold */
     --radius: 0.5rem;
 
     /* Sidebar specific colors */
     --sidebar-background: 48 20% 88%; /* #E3E1D1 */
     --sidebar-foreground: 48 10% 25%; /* #47453C */
-    --sidebar-primary: 48 85% 50%; /* #F0C200 */
-    --sidebar-primary-foreground: 48 85% 10%; /* #302600 */
+    --sidebar-primary: 18 75% 55%; /* #F28500 Orange */
+    --sidebar-primary-foreground: 0 0% 100%; /* White text */
     --sidebar-accent: 18 75% 55%; /* #F28500 */
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 48 20% 75%; /* #C9C6B6 */
-    --sidebar-ring: 48 85% 50%;
+    --sidebar-ring: 18 75% 55%;
   }
 
   .dark {
@@ -53,8 +53,8 @@ body {
     --card-foreground: 48 20% 90%;
     --popover: 48 10% 15%;
     --popover-foreground: 48 20% 90%;
-    --primary: 48 85% 50%; /* Vivid Gold - remains bright */
-    --primary-foreground: 48 85% 10%; /* Dark text on primary */
+    --primary: 18 75% 55%; /* Orange - remains bright */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
     --secondary: 48 15% 25%;
     --secondary-foreground: 48 20% 90%;
     --muted: 48 15% 20%;
@@ -65,21 +65,21 @@ body {
     --destructive-foreground: 0 0% 98%;
     --border: 48 10% 25%;
     --input: 48 10% 20%;
-    --ring: 48 85% 50%; 
-    --chart-1: 48 85% 50%;
-    --chart-2: 18 75% 55%;
-    --chart-3: 48 50% 70%;
+    --ring: 18 75% 55%; 
+    --chart-1: 18 75% 55%;
+    --chart-2: 18 75% 65%;
+    --chart-3: 18 75% 50%;
     --chart-4: 25 60% 75%;
     --chart-5: 48 20% 60%;
 
     --sidebar-background: 48 10% 12%;
     --sidebar-foreground: 48 20% 85%;
-    --sidebar-primary: 48 85% 50%;
-    --sidebar-primary-foreground: 48 85% 10%;
+    --sidebar-primary: 18 75% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 18 75% 55%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 48 10% 20%;
-    --sidebar-ring: 48 85% 50%;
+    --sidebar-ring: 18 75% 55%;
   }
 }
 
@@ -89,5 +89,78 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slideRight {
+    animation: slideRight 0.5s ease-out forwards;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .btn-hover-lift {
+    transition: all 0.3s ease-out;
+  }
+
+  .btn-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(242, 133, 0, 0.3);
+  }
+
+  .card-soft {
+    background: rgba(248, 250, 252, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent;
   }
 }
