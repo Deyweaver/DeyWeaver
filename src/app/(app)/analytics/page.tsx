@@ -1,5 +1,5 @@
 import { ProgressPieChart } from '@/components/analytics/progress-chart';
-import { TimeUsageChart } from '@/components/analytics/time-usage-chart';
+import { LifeBalanceChart } from '@/components/analytics/life-balance-chart';
 import { EfficiencyScore } from '@/components/analytics/efficiency-score';
 import { BurnoutPredictor } from '@/components/analytics/burnout-predictor';
 import { PageHeader } from '@/components/layout/page-header';
@@ -16,7 +16,7 @@ export default function AnalyticsPage() {
       {/* Charts Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
         <ProgressPieChart />
-        <TimeUsageChart />
+        <LifeBalanceChart />
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         <EfficiencyScore />

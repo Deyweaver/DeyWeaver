@@ -1,10 +1,17 @@
 
+"use client";
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CalendarPlus, ListChecks, BarChart3, CalendarDays } from 'lucide-react';
 import { PageHeader } from '@/components/layout/page-header';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  const firstName = user?.displayName?.trim().split(/\s+/)[0];
+  const greetingName = firstName || 'there';
+
   const features = [
     {
       title: 'Create Your Schedule',
@@ -44,7 +51,7 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <PageHeader
         eyebrow="Dashboard"
-        title="Welcome to Dey Weaver"
+        title={`Welcome back ${greetingName}`}
         description="Your day, your goals, no stress. Let AI handle the mess."
       />
 

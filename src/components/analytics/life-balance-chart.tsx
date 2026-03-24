@@ -80,9 +80,9 @@ export function LifeBalanceChart() {
   return (
     <Card className="shadow-lg h-full flex flex-col">
       <CardHeader>
-        <CardTitle>Life Balance Analysis</CardTitle>
+        <CardTitle>Task Type Balance</CardTitle>
         <CardDescription>
-          {isLoading ? "AI is analyzing your life balance..." : `Distribution of your ${totalTasks} tasks across different life areas`}
+          {isLoading ? "AI is analyzing your task types..." : `Distribution of your ${totalTasks} tasks across life categories and balance insights`}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0 space-y-6">
