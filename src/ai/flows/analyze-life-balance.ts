@@ -96,7 +96,17 @@ const analyzeLifeBalanceFlow = ai.defineFlow(
     outputSchema: AnalyzeLifeBalanceOutputSchema,
   },
   async (input) => {
-    const result = await analyzeLifeBalancePrompt(input);
-    return result;
+    const { output } = await analyzeLifeBalancePrompt(input);
+
+    if (!output) {
+      return {
+        categories: [],
+        totalTasks: input.tasks.length,
+        balanceInsight: 'Could not analyze life balance at this time.',
+        recommendation: 'Try again in a moment after reviewing your tasks.',
+      };
+    }
+
+    return output;
   }
 );
