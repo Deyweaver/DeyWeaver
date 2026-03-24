@@ -39,29 +39,29 @@ export default function SettingsPage() {
   return (
     <div className="max-w-3xl space-y-8">
       <div className="space-y-3">
-        <h1 className="text-4xl font-light text-gray-900">Settings</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-4xl font-light text-foreground">Settings</h1>
+        <p className="text-lg text-muted-foreground">
           Manage your account and preferences.
         </p>
       </div>
 
       {/* Appearance Settings */}
-      <div className="rounded-2xl border border-gray-200/50 bg-white p-6 shadow-sm">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <div className="space-y-4">
-          <div className="border-b border-gray-200 pb-4">
-            <h2 className="text-2xl font-semibold text-gray-900">Appearance</h2>
-            <p className="text-sm text-gray-600 mt-2">Adjust the look and feel of the application.</p>
+          <div className="border-b border-border pb-4">
+            <h2 className="text-2xl font-semibold text-foreground">Appearance</h2>
+            <p className="text-sm text-muted-foreground mt-2">Adjust the look and feel of the application.</p>
           </div>
           <ThemeToggleSwitch />
         </div>
       </div>
 
       {/* Language Settings */}
-      <div className="rounded-2xl border border-gray-200/50 bg-white p-6 shadow-sm">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <div className="space-y-4">
-          <div className="border-b border-gray-200 pb-4">
-            <h2 className="text-2xl font-semibold text-gray-900">Language</h2>
-            <p className="text-sm text-gray-600 mt-2">Choose your preferred language for the entire website.</p>
+          <div className="border-b border-border pb-4">
+            <h2 className="text-2xl font-semibold text-foreground">Language</h2>
+            <p className="text-sm text-muted-foreground mt-2">Choose your preferred language for the entire website.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {languages.map((language) => (
@@ -70,25 +70,25 @@ export default function SettingsPage() {
                 onClick={() => handleLanguageChange(language.code)}
                 className={`relative flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 transition-all ${
                   selectedLanguage === language.code
-                    ? 'border-orange-500 bg-orange-50'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    ? 'border-primary bg-primary/10 dark:bg-primary/20'
+                    : 'border-border bg-secondary dark:bg-muted hover:border-primary/50'
                 }`}
               >
                 <span className="text-xl">{language.flag}</span>
                 <span className={`text-sm font-medium ${
-                  selectedLanguage === language.code ? 'text-orange-700' : 'text-gray-700'
+                  selectedLanguage === language.code ? 'text-primary' : 'text-foreground'
                 }`}>
                   {language.name}
                 </span>
                 {selectedLanguage === language.code && (
-                  <Check className="absolute top-1 right-1 h-4 w-4 text-orange-600" />
+                  <Check className="absolute top-1 right-1 h-4 w-4 text-primary" />
                 )}
               </button>
             ))}
           </div>
           <div className="mt-6">
-            <p className="text-sm text-gray-600 mb-2">
-              Current language: <span className="font-semibold text-gray-900">{languages.find(l => l.code === selectedLanguage)?.name}</span>
+            <p className="text-sm text-muted-foreground mb-2">
+              Current language: <span className="font-semibold text-foreground">{languages.find(l => l.code === selectedLanguage)?.name}</span>
             </p>
           </div>
         </div>
