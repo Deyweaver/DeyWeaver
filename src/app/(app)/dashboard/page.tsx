@@ -60,7 +60,7 @@ export default function DashboardPage() {
             className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary/30"
           >
             {/* Background Gradient */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+            <div className="absolute inset-0 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             {/* Content */}
             <div className="relative space-y-4">
@@ -87,7 +87,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Call to Action Section */}
-      <div className="rounded-2xl bg-gradient-to-r from-primary/10 via-red-500/10 dark:from-primary/20 dark:via-red-500/20 to-primary/10 dark:to-primary/20 border border-primary/20 dark:border-primary/30 p-8 mt-12">
+      <div className="rounded-2xl bg-card border border-border p-8 mt-12">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-foreground">
             Ready to Master Your Schedule?

@@ -130,7 +130,7 @@ export function ChatbotScheduleCreator() {
           <div className="flex flex-col items-center justify-center h-full space-y-8">
             {/* Floating Orb */}
             <div className="w-32 h-32">
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-orange-400 to-orange-600 opacity-40 blur-3xl animate-pulse" />
+              <div className="w-full h-full rounded-full bg-primary opacity-20 blur-3xl animate-pulse" />
             </div>
 
             {/* Greeting */}
@@ -139,14 +139,14 @@ export function ChatbotScheduleCreator() {
                 Good Afternoon, Jason
               </h1>
               <p className="text-xl text-muted-foreground">
-                What do you want to <span className="bg-gradient-to-r from-primary to-orange-600 dark:to-orange-700 bg-clip-text text-transparent font-semibold">accomplish today?</span>
+                What do you want to <span className="text-primary dark:text-orange-500 font-semibold">accomplish today?</span>
               </p>
             </div>
 
             {/* Input Area */}
             <div className="w-full max-w-3xl space-y-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl opacity-60" />
+                <div className="absolute inset-0 bg-primary/5 rounded-2xl opacity-40" />
                 <div className="relative bg-card rounded-2xl p-1 shadow-lg">
                   <div className="flex items-center gap-3 px-6 py-4">
                     <Input
@@ -208,7 +208,7 @@ export function ChatbotScheduleCreator() {
                         {message.tasks.map((task, idx) => (
                           <div
                             key={idx}
-                            className="animate-slideRight flex items-start gap-3 p-3 rounded-lg bg-gradient-to-r from-orange-50 to-red-50 border border-orange-200/50"
+                            className="animate-slideRight flex items-start gap-3 p-3 rounded-lg bg-secondary/30 border border-border"
                           >
                             <div className="mt-1">
                               <div className="w-2 h-2 rounded-full bg-orange-500" />
@@ -266,7 +266,7 @@ export function ChatbotScheduleCreator() {
                 onClick={() => handleExampleClick(example)}
                 className="group relative overflow-hidden rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 p-4 text-left border border-gray-200 hover:border-orange-300 hover:shadow-lg text-sm"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative space-y-2">
                   <div className="text-2xl">{example.icon}</div>
                   <div className="space-y-1">
@@ -285,7 +285,7 @@ export function ChatbotScheduleCreator() {
         <div className="border-t border-border bg-card p-6">
           <div className="max-w-4xl mx-auto">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl opacity-60" />
+              <div className="absolute inset-0 bg-primary/5 rounded-2xl opacity-40" />
               <div className="relative bg-card rounded-2xl p-1 shadow-lg">
                 <div className="flex items-center gap-3 px-6 py-4">
                   <Input

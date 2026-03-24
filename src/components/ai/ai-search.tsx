@@ -49,7 +49,7 @@ export function AISearch({ onSearch }: AISearchProps) {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
       {/* Floating Glassmorphism Orb */}
-      <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-gradient-to-br from-primary to-orange-600 dark:from-orange-500 dark:to-orange-700 rounded-full opacity-40 blur-3xl animate-pulse" />
+      <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-primary rounded-full opacity-20 blur-3xl animate-pulse" />
 
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-3xl space-y-12">
@@ -57,7 +57,7 @@ export function AISearch({ onSearch }: AISearchProps) {
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-light text-foreground">
             Good Afternoon, Jason.{' '}
-            <span className="bg-gradient-to-r from-primary via-orange-600 dark:via-orange-500 to-red-500 dark:to-orange-600 bg-clip-text text-transparent font-medium">
+            <span className="text-primary dark:text-orange-500 font-medium">
               What's on your mind?
             </span>
           </h1>
@@ -66,7 +66,7 @@ export function AISearch({ onSearch }: AISearchProps) {
         {/* Search Bar */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-red-500/10 dark:from-primary/20 dark:to-red-500/20 rounded-2xl opacity-60" />
+            <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-2xl opacity-40" />
             <div className="relative bg-card rounded-2xl p-1 shadow-lg">
               <div className="flex items-center gap-3 px-6 py-4">
                 <Input
@@ -123,7 +123,7 @@ export function AISearch({ onSearch }: AISearchProps) {
                 key={idx}
                 className="group relative overflow-hidden rounded-xl bg-secondary hover:bg-accent transition-all duration-300 p-4 text-left border border-border hover:border-primary/30 hover:shadow-lg"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-red-500/10 dark:from-primary/20 dark:to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative space-y-3">
                   <div className="text-primary dark:text-orange-500 group-hover:scale-110 transition-transform duration-300">
                     {action.icon}

@@ -117,10 +117,10 @@
   }
 
   .glass-effect {
-    background: rgba(255, 250, 242, 0.75);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(210, 180, 150, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .dark .glass-effect {
@@ -134,47 +134,18 @@
 
   .btn-hover-lift:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(242, 133, 0, 0.25);
+    box-shadow: 0 8px 24px rgba(242, 133, 0, 0.2);
   }
 
   .card-soft {
-    background: rgba(255, 250, 242, 0.9);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(210, 180, 150, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
 
   .dark .card-soft {
     background: rgba(20, 20, 20, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  /* Vintage paper texture effect */
-  .vintage-paper {
-    position: relative;
-    background: linear-gradient(135deg, rgba(255, 250, 242, 0.15) 0%, rgba(240, 225, 200, 0.1) 100%);
-  }
-
-  .dark .vintage-paper {
-    background: linear-gradient(135deg, rgba(100, 70, 40, 0.05) 0%, rgba(80, 50, 30, 0.03) 100%);
-  }
-
-  /* Aged corner effect */
-  .vintage-corner {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .vintage-corner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    background: 
-      radial-gradient(circle at 0% 0%, rgba(210, 170, 130, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 100% 100%, rgba(180, 140, 100, 0.03) 0%, transparent 50%);
   }
 
   .text-gradient {
