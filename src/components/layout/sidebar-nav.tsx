@@ -43,8 +43,7 @@ export function SidebarNav() {
     items.map((item) => (
       <SidebarMenuItem key={item.href}>
         <Link href={item.href}>
-          {/* idk this whole part works lol */
-          }
+          {/* idk this whole part works lol */}
           <SidebarMenuButton
             isActive={pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))}
             tooltip={item.label}

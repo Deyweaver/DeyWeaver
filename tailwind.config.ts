@@ -3,9 +3,9 @@ import type { Config } from "tailwindcss";
 export default {
     darkMode: ["class"],
     content: [
-    "./src/pages/* idk this whole part works lol */*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/* idk this whole part works lol */*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/* idk this whole part works lol */*.{js,ts,jsx,tsx,mdx}",
+	"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+	"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+	"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
   	extend: {
