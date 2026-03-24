@@ -2,11 +2,12 @@ type PageHeaderProps = {
   title: string;
   description: string;
   eyebrow?: string;
+  className?: string;
 };
 
-export function PageHeader({ title, description, eyebrow = 'Workspace' }: PageHeaderProps) {
+export function PageHeader({ title, description, eyebrow = 'Workspace', className }: PageHeaderProps) {
   return (
-    <header className="rounded-2xl border border-border bg-card px-6 py-5 shadow-sm">
+    <header className={`rounded-2xl border border-border bg-card px-6 py-5 shadow-sm ${className ?? ''}`}>
       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         <span className="h-2 w-2 rounded-full bg-primary" />
         {eyebrow}

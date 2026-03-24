@@ -8,6 +8,7 @@ export default function CreateSchedulePage() {
         eyebrow="Scheduling"
         title="Create Your Schedule"
         description="Let AI craft your perfect day with intelligent scheduling."
+        className="max-w-2xl mx-auto"
       />
       <CreateScheduleForm />
     </div>
