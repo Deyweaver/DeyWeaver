@@ -5,8 +5,8 @@ export default function TasksPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="space-y-3">
-        <h1 className="text-4xl font-light text-gray-900">My Tasks</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-4xl font-light text-foreground">My Tasks</h1>
+        <p className="text-lg text-muted-foreground">
           Stay organized and focused. Manage your to-do list effectively.
         </p>
       </div>

@@ -135,11 +135,11 @@ export function ChatbotScheduleCreator() {
 
             {/* Greeting */}
             <div className="text-center space-y-3">
-              <h1 className="text-4xl font-light text-gray-900">
+              <h1 className="text-4xl font-light text-foreground">
                 Good Afternoon, Jason
               </h1>
-              <p className="text-xl text-gray-600">
-                What do you want to <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent font-semibold">accomplish today?</span>
+              <p className="text-xl text-muted-foreground">
+                What do you want to <span className="bg-gradient-to-r from-primary to-orange-600 dark:to-orange-700 bg-clip-text text-transparent font-semibold">accomplish today?</span>
               </p>
             </div>
 
@@ -200,7 +200,7 @@ export function ChatbotScheduleCreator() {
                 {message.type === 'task' && message.tasks && (
                   <div className="flex justify-start">
                     <div className="max-w-2xl bg-secondary dark:bg-muted rounded-lg rounded-bl-none shadow-md p-4 space-y-3">
-                      <p className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                      <p className="text-sm font-medium text-foreground flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
                         {message.content}
                       </p>
@@ -214,7 +214,7 @@ export function ChatbotScheduleCreator() {
                               <div className="w-2 h-2 rounded-full bg-orange-500" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900">{task.name}</p>
+                              <p className="text-sm font-medium text-foreground">{task.name}</p>
                               <div className="flex gap-2 mt-1 flex-wrap">
                                 <span className={`text-xs px-2 py-1 rounded-full ${
                                   task.priority === 'high' ? 'bg-red-100 text-red-700' :
@@ -224,7 +224,7 @@ export function ChatbotScheduleCreator() {
                                   {task.priority} priority
                                 </span>
                                 {task.dueDate && (
-                                  <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">
+                                  <span className="text-xs px-2 py-1 rounded-full bg-secondary dark:bg-muted text-foreground">
                                     Due: {task.dueDate}
                                   </span>
                                 )}
@@ -243,7 +243,7 @@ export function ChatbotScheduleCreator() {
               <div className="flex justify-start">
                 <div className="bg-card px-4 py-3 rounded-lg rounded-bl-none flex items-center gap-2 shadow-md">
                   <Loader className="h-4 w-4 animate-spin text-orange-600" />
-                  <span className="text-sm text-gray-600">AI is processing...</span>
+                  <span className="text-sm text-muted-foreground">AI is processing...</span>
                 </div>
               </div>
             )}
@@ -256,7 +256,7 @@ export function ChatbotScheduleCreator() {
       {/* Examples Section (shown when no messages) */}
       {messages.length === 0 && (
         <div className="border-t border-border bg-card p-6 px-8">
-          <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-4">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-4">
             Try one of these prompts
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -270,8 +270,8 @@ export function ChatbotScheduleCreator() {
                 <div className="relative space-y-2">
                   <div className="text-2xl">{example.icon}</div>
                   <div className="space-y-1">
-                    <p className="font-semibold text-gray-900">{example.title}</p>
-                    <p className="text-xs text-gray-600 line-clamp-2">{example.description}</p>
+                    <p className="font-semibold text-foreground">{example.title}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{example.description}</p>
                   </div>
                 </div>
               </button>

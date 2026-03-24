@@ -4,24 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    /* Vintage light mode - warm, aged cream tones - MORE VISIBLE */
+    --background: 38 30% 92%;
+    --foreground: 25 15% 15%;
+    --card: 38 28% 95%;
+    --card-foreground: 25 15% 15%;
+    --popover: 38 28% 95%;
+    --popover-foreground: 25 15% 15%;
     --primary: 18 75% 55%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --secondary: 38 20% 88%;
+    --secondary-foreground: 25 10% 25%;
+    --muted: 38 18% 85%;
+    --muted-foreground: 25 8% 45%;
+    --accent: 30 20% 80%;
+    --accent-foreground: 25 15% 20%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
+    --border: 38 20% 83%;
+    --input: 38 20% 90%;
     --ring: 18 75% 55%;
     --radius: 0.5rem;
     --chart-1: 18 75% 55%;
@@ -32,6 +33,7 @@
   }
 
   .dark {
+    /* Dark mode - back to original deep dark */
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -115,10 +117,10 @@
   }
 
   .glass-effect {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 250, 242, 0.75);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(210, 180, 150, 0.25);
   }
 
   .dark .glass-effect {
@@ -132,18 +134,47 @@
 
   .btn-hover-lift:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(242, 133, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(242, 133, 0, 0.25);
   }
 
   .card-soft {
-    background: rgba(248, 250, 252, 0.8);
+    background: rgba(255, 250, 242, 0.9);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(226, 232, 240, 0.5);
+    border: 1px solid rgba(210, 180, 150, 0.2);
   }
 
   .dark .card-soft {
     background: rgba(20, 20, 20, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Vintage paper texture effect */
+  .vintage-paper {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 250, 242, 0.15) 0%, rgba(240, 225, 200, 0.1) 100%);
+  }
+
+  .dark .vintage-paper {
+    background: linear-gradient(135deg, rgba(100, 70, 40, 0.05) 0%, rgba(80, 50, 30, 0.03) 100%);
+  }
+
+  /* Aged corner effect */
+  .vintage-corner {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vintage-corner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: 
+      radial-gradient(circle at 0% 0%, rgba(210, 170, 130, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(180, 140, 100, 0.03) 0%, transparent 50%);
   }
 
   .text-gradient {
