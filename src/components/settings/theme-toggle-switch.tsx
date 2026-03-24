@@ -5,15 +5,55 @@ import { useTheme } from 'next-themes';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Moon, Sun } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
+import { loadUserSettingsFromDb, saveUserSettingsToDb } from '@/lib/user-settings-db';
 
 export function ThemeToggleSwitch() {
+  const { user } = useAuth();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isThemeLoadedFromDb, setIsThemeLoadedFromDb] = useState(false);
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!mounted || !user?.uid) {
+      setIsThemeLoadedFromDb(true);
+      return;
+    }
+
+    let isActive = true;
+
+    async function loadThemePreference() {
+      const settings = await loadUserSettingsFromDb(user.uid);
+      if (!isActive) {
+        return;
+      }
+
+      if (settings.theme) {
+        setTheme(settings.theme);
+      }
+      setIsThemeLoadedFromDb(true);
+    }
+
+    loadThemePreference();
+
+    return () => {
+      isActive = false;
+    };
+  }, [mounted, user?.uid, setTheme]);
+
+  useEffect(() => {
+    if (!mounted || !isThemeLoadedFromDb || !resolvedTheme) {
+      return;
+    }
+
+    const normalizedTheme = resolvedTheme === 'dark' ? 'dark' : 'light';
+    saveUserSettingsToDb(user?.uid, { theme: normalizedTheme });
+  }, [mounted, isThemeLoadedFromDb, resolvedTheme, user?.uid]);
 
   if (!mounted) {
     // Render nothing or a placeholder until mounted to avoid hydration mismatch

@@ -26,6 +26,7 @@ import {
   type DashboardWidgetKey,
   type DashboardWidgetPreferences,
 } from '@/lib/dashboard-preferences';
+import { loadUserSettingsFromDb, saveUserSettingsToDb } from '@/lib/user-settings-db';
 import { Plus, Trash2 } from 'lucide-react';
 
 export default function SettingsPage() {
@@ -69,6 +70,43 @@ export default function SettingsPage() {
     };
   }, [isMounted, user?.uid]);
 
+  useEffect(() => {
+    if (!isMounted || !user?.uid) {
+      return;
+    }
+
+    let isActive = true;
+
+    async function loadGeneralSettings() {
+      const settings = await loadUserSettingsFromDb(user.uid);
+
+      if (!isActive) {
+        return;
+      }
+
+      if (settings.weatherMode) {
+        setWeatherMode(settings.weatherMode);
+        setWeatherModePreference(settings.weatherMode);
+      }
+
+      if (typeof settings.weatherLocation === 'string') {
+        setWeatherLocation(settings.weatherLocation);
+        setWeatherLocationPreference(settings.weatherLocation);
+      }
+
+      if (settings.quickLinks && settings.quickLinks.length > 0) {
+        setQuickLinks(settings.quickLinks);
+        setQuickLinksPreference(settings.quickLinks);
+      }
+    }
+
+    loadGeneralSettings();
+
+    return () => {
+      isActive = false;
+    };
+  }, [isMounted, user?.uid]);
+
   const handleDashboardWidgetToggle = async (key: DashboardWidgetKey, checked: boolean) => {
     const nextPreferences = {
       ...widgetPreferences,
@@ -83,6 +121,10 @@ export default function SettingsPage() {
   const handleSaveWeatherLocation = () => {
     setWeatherModePreference(weatherMode);
     setWeatherLocationPreference(weatherLocation);
+    saveUserSettingsToDb(user?.uid, {
+      weatherMode,
+      weatherLocation: weatherLocation.trim(),
+    });
 
     if (weatherMode === 'device') {
       setWeatherSavedMessage('Saved: weather will use your device location.');
@@ -121,6 +163,9 @@ export default function SettingsPage() {
 
     setQuickLinks(nextLinks);
     setQuickLinksPreference(nextLinks);
+    saveUserSettingsToDb(user?.uid, {
+      quickLinks: nextLinks,
+    });
     setNewLinkLabel('');
     setNewLinkUrl('');
     setQuickLinkMessage('Quick link added.');
@@ -130,6 +175,9 @@ export default function SettingsPage() {
     const nextLinks = quickLinks.filter((link) => link.id !== id);
     setQuickLinks(nextLinks);
     setQuickLinksPreference(nextLinks);
+    saveUserSettingsToDb(user?.uid, {
+      quickLinks: nextLinks,
+    });
     setQuickLinkMessage('Quick link removed.');
   };
 
@@ -137,6 +185,9 @@ export default function SettingsPage() {
     const defaults = getDefaultQuickLinks();
     setQuickLinks(defaults);
     setQuickLinksPreference(defaults);
+    saveUserSettingsToDb(user?.uid, {
+      quickLinks: defaults,
+    });
     setQuickLinkMessage('Quick links reset to default.');
   };
 

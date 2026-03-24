@@ -4,13 +4,42 @@ import { useEffect, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getQuickLinksPreference, type QuickLinkItem } from '@/lib/user-preferences';
+import { useAuth } from '@/hooks/use-auth';
+import { loadUserSettingsFromDb } from '@/lib/user-settings-db';
 
 export function QuickLinksWidget() {
+  const { user } = useAuth();
   const [links, setLinks] = useState<QuickLinkItem[]>([]);
 
   useEffect(() => {
-    setLinks(getQuickLinksPreference());
-  }, []);
+    let isActive = true;
+
+    async function loadLinks() {
+      const localLinks = getQuickLinksPreference();
+      if (isActive) {
+        setLinks(localLinks);
+      }
+
+      if (!user?.uid) {
+        return;
+      }
+
+      const dbSettings = await loadUserSettingsFromDb(user.uid);
+      if (!isActive) {
+        return;
+      }
+
+      if (dbSettings.quickLinks && dbSettings.quickLinks.length >= 0) {
+        setLinks(dbSettings.quickLinks);
+      }
+    }
+
+    loadLinks();
+
+    return () => {
+      isActive = false;
+    };
+  }, [user?.uid]);
 
   return (
     <Card className="h-full border-border/80 shadow-sm">

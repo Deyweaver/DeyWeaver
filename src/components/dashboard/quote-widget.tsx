@@ -6,14 +6,46 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { IconSpinner } from '@/components/icons';
 import { handleFetchQuote, type QuoteResult } from '@/lib/actions';
 
+const QUOTE_CACHE_KEY = 'deyweaver.quoteOfTheDay';
+const QUOTE_CACHE_TTL_MS = 3 * 60 * 1000;
+
+type CachedQuote = {
+  data: QuoteResult;
+  fetchedAt: number;
+};
+
 export function QuoteWidget() {
   const [data, setData] = useState<QuoteResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadQuote() {
+      try {
+        const cachedRaw = localStorage.getItem(QUOTE_CACHE_KEY);
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw) as CachedQuote;
+          const isFresh = Date.now() - cached.fetchedAt < QUOTE_CACHE_TTL_MS;
+          if (isFresh && cached.data?.quote) {
+            setData(cached.data);
+            setIsLoading(false);
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn('Could not read cached quote:', error);
+      }
+
       const result = await handleFetchQuote();
       setData(result);
+      try {
+        const payload: CachedQuote = {
+          data: result,
+          fetchedAt: Date.now(),
+        };
+        localStorage.setItem(QUOTE_CACHE_KEY, JSON.stringify(payload));
+      } catch (error) {
+        console.warn('Could not cache quote:', error);
+      }
       setIsLoading(false);
     }
 

@@ -8,31 +8,53 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/layout/page-header';
 
 export default function TalkToFounderPage() {
-  const calendlyLink = "https://calendly.com/aryanbrite/30min";
+  const patreonLink = 'https://patreon.com/deyweaver';
+  const openCollectiveLink = 'https://opencollective.com/deyweaver';
+  const githubRepoLink = 'https://github.com/Deyweaver/DeyWeaver';
 
   return (
     <div className="container mx-auto py-8 space-y-8">
       <PageHeader
-        eyebrow="Community"
         title="Talk to the Founder"
-        description="Share your thoughts and help shape Dey Weaver."
+        description="Support the mission and help keep Dey Weaver alive."
       />
 
       <Card>
         <CardHeader>
-          <CardTitle>An Invitation for a Quick Chat!</CardTitle>
+          <CardTitle>Dey Weaver Is a Non Profit Open Source Community Project</CardTitle>
+          <CardDescription>
+            We work on corporate gifts and donations to support ongoing development.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-foreground/90">
-            Will you be open to a 15-minute call with the founder, Aryan? We would really appreciate that!
+            It is hard to maintain server costs from our side. If Dey Weaver helps you, please consider donating.
           </p>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Button asChild size="lg" className="mt-1">
+              <Link href={patreonLink} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-5 w-5" />
+                Donate on Patreon
+              </Link>
+            </Button>
+
+            <Button asChild size="lg" variant="outline" className="mt-1">
+              <Link href={openCollectiveLink} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-5 w-5" />
+                Donate on Open Collective
+              </Link>
+            </Button>
+          </div>
+
           <p className="text-foreground/80">
-            We want to understand your use case and know more about you. Don't worry, it's not a business meeting – I just want to know you and your ideas.
+            Or help us maintain this project by opening another pull request to our GitHub repository.
           </p>
-          <Button asChild size="lg" className="mt-4">
-            <Link href={calendlyLink} target="_blank" rel="noopener noreferrer">
+
+          <Button asChild size="lg" variant="secondary" className="mt-1">
+            <Link href={githubRepoLink} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="mr-2 h-5 w-5" />
-              RSVP for a Chat
+              Contribute on GitHub
             </Link>
           </Button>
         </CardContent>

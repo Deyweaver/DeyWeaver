@@ -26,11 +26,13 @@ export function LifeBalanceChart() {
   const [insight, setInsight] = useState<string | null>(null);
   const [recommendation, setRecommendation] = useState<string | null>(null);
   const [totalTasks, setTotalTasks] = useState(0);
+  const [inputTaskCount, setInputTaskCount] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
       const tasks = getTasksFromLocalStorage();
+      setInputTaskCount(tasks.length);
 
       if (tasks.length === 0) {
         setCategories([]);
@@ -68,7 +70,24 @@ export function LifeBalanceChart() {
         setIsLoading(false);
       }
     }
+
     fetchData();
+
+    const handleTasksUpdated = () => {
+      fetchData();
+    };
+
+    const handleWindowFocus = () => {
+      fetchData();
+    };
+
+    window.addEventListener('deyweaver-tasks-updated', handleTasksUpdated);
+    window.addEventListener('focus', handleWindowFocus);
+
+    return () => {
+      window.removeEventListener('deyweaver-tasks-updated', handleTasksUpdated);
+      window.removeEventListener('focus', handleWindowFocus);
+    };
   }, []);
 
   const chartData = categories.map(cat => ({
@@ -176,7 +195,9 @@ export function LifeBalanceChart() {
           </>
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <p className="text-muted-foreground mb-2">No tasks to analyze yet</p>
+            <p className="text-muted-foreground mb-2">
+              {inputTaskCount > 0 ? 'Tasks found, but analysis is not available yet' : 'No tasks to analyze yet'}
+            </p>
             <p className="text-sm text-muted-foreground">{recommendation}</p>
           </div>
         )}

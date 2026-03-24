@@ -11,7 +11,7 @@ export default function ClientProviders({ children }: { children: React.ReactNod
   return (
     <ThemeProvider 
       attribute="class" 
-      defaultTheme="system" 
+      defaultTheme="light" 
       enableSystem 
       storageKey="deyweaver-theme"
       themes={['light', 'dark']}
