@@ -5,7 +5,7 @@ import { CloudSun, MapPin, Wind } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { IconSpinner } from '@/components/icons';
 import { handleFetchWeather, handleFetchWeatherByLocationName, type WeatherResult } from '@/lib/actions';
-import { getWeatherLocationPreference } from '@/lib/user-preferences';
+import { getWeatherLocationPreference, getWeatherModePreference } from '@/lib/user-preferences';
 
 export function WeatherWidget() {
   const [data, setData] = useState<WeatherResult | null>(null);
@@ -13,9 +13,16 @@ export function WeatherWidget() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const weatherMode = getWeatherModePreference();
     const savedLocation = getWeatherLocationPreference();
 
-    if (savedLocation) {
+    if (weatherMode === 'manual') {
+      if (!savedLocation) {
+        setStatusMessage('Manual weather mode is enabled. Set a location in Settings.');
+        setIsLoading(false);
+        return;
+      }
+
       async function loadSavedLocationWeather() {
         const result = await handleFetchWeatherByLocationName({ location: savedLocation });
         setData(result);
@@ -70,7 +77,7 @@ export function WeatherWidget() {
           <CloudSun className="h-5 w-5 text-primary" />
           Weather
         </CardTitle>
-        <CardDescription>Live conditions from your current location</CardDescription>
+        <CardDescription>Live conditions from your selected weather source</CardDescription>
       </CardHeader>
       <CardContent>
         {isLoading ? (

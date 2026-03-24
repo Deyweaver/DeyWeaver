@@ -5,18 +5,23 @@ import { ThemeToggleSwitch } from '@/components/settings/theme-toggle-switch';
 import { PageHeader } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   getDefaultQuickLinks,
   getQuickLinksPreference,
   getWeatherLocationPreference,
+  getWeatherModePreference,
   setQuickLinksPreference,
   setWeatherLocationPreference,
+  setWeatherModePreference,
   type QuickLinkItem,
+  type WeatherMode,
 } from '@/lib/user-preferences';
 import { Plus, Trash2 } from 'lucide-react';
 
 export default function SettingsPage() {
   const [isMounted, setIsMounted] = useState(false);
+  const [weatherMode, setWeatherMode] = useState<WeatherMode>('device');
   const [weatherLocation, setWeatherLocation] = useState('');
   const [weatherSavedMessage, setWeatherSavedMessage] = useState('');
   const [quickLinks, setQuickLinks] = useState<QuickLinkItem[]>([]);
@@ -26,16 +31,24 @@ export default function SettingsPage() {
 
   useEffect(() => {
     setIsMounted(true);
+    setWeatherMode(getWeatherModePreference());
     setWeatherLocation(getWeatherLocationPreference());
     setQuickLinks(getQuickLinksPreference());
   }, []);
 
   const handleSaveWeatherLocation = () => {
+    setWeatherModePreference(weatherMode);
     setWeatherLocationPreference(weatherLocation);
+
+    if (weatherMode === 'device') {
+      setWeatherSavedMessage('Saved: weather will use your device location.');
+      return;
+    }
+
     setWeatherSavedMessage(
       weatherLocation.trim().length > 0
-        ? `Saved weather location: ${weatherLocation.trim()}`
-        : 'Weather location cleared. Dashboard will use browser geolocation.'
+        ? `Saved manual weather location: ${weatherLocation.trim()}`
+        : 'Manual mode selected. Please add a location name.'
     );
   };
 
@@ -110,14 +123,27 @@ export default function SettingsPage() {
           <div className="border-b border-border pb-4">
             <h2 className="text-2xl font-semibold text-foreground">Weather Location</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Set a city or place for the weather widget. Leave empty to use browser geolocation.
+              Choose one: use your device location, or set a manual location.
             </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-[220px_1fr] sm:items-center">
+            <p className="text-sm font-medium text-foreground">Weather Source</p>
+            <Select value={weatherMode} onValueChange={(value) => setWeatherMode(value as WeatherMode)}>
+              <SelectTrigger className="max-w-sm">
+                <SelectValue placeholder="Select weather source" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="device">Use device location</SelectItem>
+                <SelectItem value="manual">Enter location manually</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
             <Input
               value={weatherLocation}
               onChange={(e) => setWeatherLocation(e.target.value)}
               placeholder="Example: Berlin, London, New York"
+              disabled={weatherMode !== 'manual'}
             />
             <Button onClick={handleSaveWeatherLocation}>Save Location</Button>
           </div>

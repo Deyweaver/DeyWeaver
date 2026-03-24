@@ -36,7 +36,15 @@ export function QuoteWidget() {
           </div>
         ) : (
           <div className="space-y-4">
-            <blockquote className="border-l-2 border-primary/50 pl-4 text-sm leading-relaxed text-foreground">
+            <blockquote
+              className="border-l-2 border-primary/50 pl-4 text-sm leading-relaxed text-foreground"
+              style={{
+                display: '-webkit-box',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 4,
+                overflow: 'hidden',
+              }}
+            >
               "{data?.quote}"
             </blockquote>
             <p className="text-sm font-medium text-muted-foreground">- {data?.author}</p>

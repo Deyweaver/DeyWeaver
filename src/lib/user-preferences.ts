@@ -4,7 +4,10 @@ export interface QuickLinkItem {
   url: string;
 }
 
+export type WeatherMode = 'device' | 'manual';
+
 const WEATHER_LOCATION_KEY = 'deyweaver.weatherLocation';
+const WEATHER_MODE_KEY = 'deyweaver.weatherMode';
 const QUICK_LINKS_KEY = 'deyweaver.quickLinks';
 
 const DEFAULT_QUICK_LINKS: QuickLinkItem[] = [
@@ -34,6 +37,23 @@ export function getWeatherLocationPreference(): string {
     return '';
   }
   return localStorage.getItem(WEATHER_LOCATION_KEY)?.trim() || '';
+}
+
+export function getWeatherModePreference(): WeatherMode {
+  if (!hasWindow()) {
+    return 'device';
+  }
+
+  const raw = localStorage.getItem(WEATHER_MODE_KEY);
+  return raw === 'manual' ? 'manual' : 'device';
+}
+
+export function setWeatherModePreference(mode: WeatherMode): void {
+  if (!hasWindow()) {
+    return;
+  }
+
+  localStorage.setItem(WEATHER_MODE_KEY, mode);
 }
 
 export function setWeatherLocationPreference(location: string): void {

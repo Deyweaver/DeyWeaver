@@ -22,9 +22,12 @@ export default function DashboardPage() {
       />
 
       <div className="grid gap-6 md:grid-cols-2">
-        <DirectSearchWidget />
         <WeatherWidget />
         <QuoteWidget />
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <DirectSearchWidget />
         <NewsWidget />
         <QuickLinksWidget />
       </div>
