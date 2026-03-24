@@ -47,17 +47,17 @@ export function AISearch({ onSearch }: AISearchProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
       {/* Floating Glassmorphism Orb */}
-      <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full opacity-40 blur-3xl animate-pulse" />
+      <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-gradient-to-br from-primary to-orange-600 dark:from-orange-500 dark:to-orange-700 rounded-full opacity-40 blur-3xl animate-pulse" />
 
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-3xl space-y-12">
         {/* Greeting */}
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-light text-gray-900">
+          <h1 className="text-4xl font-light text-foreground">
             Good Afternoon, Jason.{' '}
-            <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 bg-clip-text text-transparent font-medium">
+            <span className="bg-gradient-to-r from-primary via-orange-600 dark:via-orange-500 to-red-500 dark:to-orange-600 bg-clip-text text-transparent font-medium">
               What's on your mind?
             </span>
           </h1>
@@ -66,20 +66,20 @@ export function AISearch({ onSearch }: AISearchProps) {
         {/* Search Bar */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl opacity-60" />
-            <div className="relative bg-white rounded-2xl p-1 shadow-lg">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-red-500/10 dark:from-primary/20 dark:to-red-500/20 rounded-2xl opacity-60" />
+            <div className="relative bg-card rounded-2xl p-1 shadow-lg">
               <div className="flex items-center gap-3 px-6 py-4">
                 <Input
                   type="text"
                   placeholder="Ask AI a question or describe a task..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="flex-grow text-lg border-0 bg-transparent placeholder-gray-400 focus:outline-none focus:ring-0"
+                  className="flex-grow text-lg border-0 bg-transparent placeholder-muted-foreground focus:outline-none focus:ring-0"
                 />
                 <Button
                   type="submit"
                   size="icon"
-                  className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 rounded-full h-10 w-10"
+                  className="bg-gradient-to-r from-primary to-orange-600 dark:from-primary dark:to-orange-700 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-600 dark:hover:to-orange-800 rounded-full h-10 w-10"
                   disabled={!query.trim()}
                 >
                   <ArrowRight className="h-4 w-4" />
@@ -93,7 +93,7 @@ export function AISearch({ onSearch }: AISearchProps) {
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
                 <Select value={writingStyle} onValueChange={setWritingStyle}>
-                  <SelectTrigger className="w-[180px] border-gray-200">
+                  <SelectTrigger className="w-[180px] border-border">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -106,7 +106,7 @@ export function AISearch({ onSearch }: AISearchProps) {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600">Citation</span>
+              <span className="text-sm text-muted-foreground">Citation</span>
               <Switch checked={citation} onCheckedChange={setCitation} />
             </div>
           </div>
@@ -114,25 +114,25 @@ export function AISearch({ onSearch }: AISearchProps) {
 
         {/* Quick Actions */}
         <div className="space-y-4">
-          <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
             Get started with an example below
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {quickActions.map((action, idx) => (
               <button
                 key={idx}
-                className="group relative overflow-hidden rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 p-4 text-left border border-gray-200 hover:border-orange-300 hover:shadow-lg"
+                className="group relative overflow-hidden rounded-xl bg-secondary hover:bg-accent transition-all duration-300 p-4 text-left border border-border hover:border-primary/30 hover:shadow-lg"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-red-500/10 dark:from-primary/20 dark:to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative space-y-3">
-                  <div className="text-orange-600 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-primary dark:text-orange-500 group-hover:scale-110 transition-transform duration-300">
                     {action.icon}
                   </div>
                   <div className="space-y-1">
-                    <p className="font-semibold text-gray-900 text-sm">
+                    <p className="font-semibold text-foreground text-sm">
                       {action.label}
                     </p>
-                    <p className="text-xs text-gray-600 line-clamp-2">
+                    <p className="text-xs text-muted-foreground line-clamp-2">
                       {action.description}
                     </p>
                   </div>

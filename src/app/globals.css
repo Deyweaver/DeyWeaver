@@ -2,84 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
-    --background: 48 20% 90%; /* #E8E6D8 Desaturated Gold */
-    --foreground: 48 10% 20%; /* #3A3831 Darker shade for text */
-    --card: 48 20% 95%; /* #F0EFEA Slightly lighter than background */
-    --card-foreground: 48 10% 20%;
-    --popover: 48 20% 95%;
-    --popover-foreground: 48 10% 20%;
-    --primary: 18 75% 55%; /* #F28500 Orange */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF White text on primary */
-    --secondary: 48 30% 80%; /* #D7D3BF */
-    --secondary-foreground: 48 10% 20%;
-    --muted: 48 20% 85%; /* #E0DDCB */
-    --muted-foreground: 48 10% 45%; /* #7E7A6B */
-    --accent: 18 75% 55%; /* #F28500 Orange */
-    --accent-foreground: 0 0% 100%; /* #FFFFFF White text on accent */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 18 75% 55%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 48 20% 80%; /* #D1CEBE */
-    --input: 48 20% 85%; /* #E0DDCB */
-    --ring: 18 75% 55%; /* #F28500 Orange For focus rings */
-    --chart-1: 18 75% 55%; /* orange */
-    --chart-2: 18 75% 65%; /* lighter orange */
-    --chart-3: 18 75% 50%; /* darker orange */
-    --chart-4: 25 60% 65%; /* related orange */
-    --chart-5: 48 20% 70%; /* muted gold */
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 18 75% 55%;
     --radius: 0.5rem;
-
-    /* Sidebar specific colors */
-    --sidebar-background: 48 20% 88%; /* #E3E1D1 */
-    --sidebar-foreground: 48 10% 25%; /* #47453C */
-    --sidebar-primary: 18 75% 55%; /* #F28500 Orange */
-    --sidebar-primary-foreground: 0 0% 100%; /* White text */
-    --sidebar-accent: 18 75% 55%; /* #F28500 */
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 48 20% 75%; /* #C9C6B6 */
-    --sidebar-ring: 18 75% 55%;
+    --chart-1: 18 75% 55%;
+    --chart-2: 18 75% 65%;
+    --chart-3: 18 75% 50%;
+    --chart-4: 25 60% 65%;
+    --chart-5: 48 20% 70%;
   }
 
   .dark {
-    /* Dark theme adaptation of Dey Weaver colors */
-    --background: 48 10% 10%; /* Dark Gold/Brown */
-    --foreground: 48 20% 90%; /* Light Desaturated Gold */
-    --card: 48 10% 15%; 
-    --card-foreground: 48 20% 90%;
-    --popover: 48 10% 15%;
-    --popover-foreground: 48 20% 90%;
-    --primary: 18 75% 55%; /* Orange - remains bright */
-    --primary-foreground: 0 0% 100%; /* White text on primary */
-    --secondary: 48 15% 25%;
-    --secondary-foreground: 48 20% 90%;
-    --muted: 48 15% 20%;
-    --muted-foreground: 48 20% 60%;
-    --accent: 18 75% 55%; /* Orange - remains bright */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 70% 50%;
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 18 75% 55%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 48 10% 25%;
-    --input: 48 10% 20%;
-    --ring: 18 75% 55%; 
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 18 75% 55%;
     --chart-1: 18 75% 55%;
     --chart-2: 18 75% 65%;
     --chart-3: 18 75% 50%;
     --chart-4: 25 60% 75%;
     --chart-5: 48 20% 60%;
-
-    --sidebar-background: 48 10% 12%;
-    --sidebar-foreground: 48 20% 85%;
-    --sidebar-primary: 18 75% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 18 75% 55%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 48 10% 20%;
-    --sidebar-ring: 18 75% 55%;
   }
 }
 
@@ -145,6 +121,11 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.18);
   }
 
+  .dark .glass-effect {
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
   .btn-hover-lift {
     transition: all 0.3s ease-out;
   }
@@ -158,6 +139,11 @@ body {
     background: rgba(248, 250, 252, 0.8);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(226, 232, 240, 0.5);
+  }
+
+  .dark .card-soft {
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .text-gradient {

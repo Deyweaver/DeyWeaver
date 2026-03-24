@@ -76,11 +76,11 @@ export function MinimalSidebar() {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-20 bg-white border-r border-gray-200/50 flex flex-col items-center py-6 gap-4 z-40">
+    <aside className="fixed left-0 top-0 h-screen w-20 bg-card border-r border-border flex flex-col items-center py-6 gap-4 z-40">
       {/* Logo Area */}
       <Link
         href="/"
-        className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center hover:shadow-lg transition-shadow duration-300 text-white font-bold"
+        className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-orange-600 dark:from-primary dark:to-orange-700 flex items-center justify-center hover:shadow-lg transition-shadow duration-300 text-white font-bold"
         title="Home"
       >
         Dey
