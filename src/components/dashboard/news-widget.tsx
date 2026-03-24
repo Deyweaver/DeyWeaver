@@ -6,14 +6,46 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { IconSpinner } from '@/components/icons';
 import { handleFetchTopNews, type TopNewsResult } from '@/lib/actions';
 
+const NEWS_CACHE_KEY = 'deyweaver.topNews';
+const NEWS_CACHE_TTL_MS = 3 * 60 * 1000;
+
+type CachedNews = {
+  data: TopNewsResult;
+  fetchedAt: number;
+};
+
 export function NewsWidget() {
   const [data, setData] = useState<TopNewsResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadNews() {
+      try {
+        const cachedRaw = localStorage.getItem(NEWS_CACHE_KEY);
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw) as CachedNews;
+          const isFresh = Date.now() - cached.fetchedAt < NEWS_CACHE_TTL_MS;
+          if (isFresh && cached.data?.items?.length > 0) {
+            setData(cached.data);
+            setIsLoading(false);
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn('Could not read cached news:', error);
+      }
+
       const result = await handleFetchTopNews();
       setData(result);
+      try {
+        const payload: CachedNews = {
+          data: result,
+          fetchedAt: Date.now(),
+        };
+        localStorage.setItem(NEWS_CACHE_KEY, JSON.stringify(payload));
+      } catch (error) {
+        console.warn('Could not cache news:', error);
+      }
       setIsLoading(false);
     }
 

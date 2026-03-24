@@ -20,7 +20,9 @@ export function ThemeToggleSwitch() {
   }, []);
 
   useEffect(() => {
-    if (!mounted || !user?.uid) {
+    const userId = user?.uid;
+
+    if (!mounted || !userId) {
       setIsThemeLoadedFromDb(true);
       return;
     }
@@ -28,7 +30,7 @@ export function ThemeToggleSwitch() {
     let isActive = true;
 
     async function loadThemePreference() {
-      const settings = await loadUserSettingsFromDb(user.uid);
+      const settings = await loadUserSettingsFromDb(userId);
       if (!isActive) {
         return;
       }

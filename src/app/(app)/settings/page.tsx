@@ -71,14 +71,16 @@ export default function SettingsPage() {
   }, [isMounted, user?.uid]);
 
   useEffect(() => {
-    if (!isMounted || !user?.uid) {
+    const userId = user?.uid;
+
+    if (!isMounted || !userId) {
       return;
     }
 
     let isActive = true;
 
     async function loadGeneralSettings() {
-      const settings = await loadUserSettingsFromDb(user.uid);
+      const settings = await loadUserSettingsFromDb(userId);
 
       if (!isActive) {
         return;

@@ -31,6 +31,125 @@ import {
   type AnalyzeLifeBalanceOutput
 } from '@/ai/flows/analyze-life-balance';
 
+const LIFE_CATEGORY_DEFINITIONS: Array<{
+  name: string;
+  description: string;
+  keywords: string[];
+  color: string;
+}> = [
+  {
+    name: 'Work/Career',
+    description: 'Professional tasks, projects, meetings, and career work.',
+    keywords: ['work', 'office', 'meeting', 'project', 'client', 'career', 'job', 'deadline'],
+    color: '#f97316',
+  },
+  {
+    name: 'Health & Wellness',
+    description: 'Fitness, medical, sleep, nutrition, and self-care tasks.',
+    keywords: ['gym', 'workout', 'health', 'doctor', 'meditation', 'sleep', 'diet', 'run', 'walk'],
+    color: '#10b981',
+  },
+  {
+    name: 'Relationships',
+    description: 'Family, friends, social, and communication activities.',
+    keywords: ['family', 'friend', 'call', 'social', 'relationship', 'partner', 'parents'],
+    color: '#8b5cf6',
+  },
+  {
+    name: 'Personal Growth',
+    description: 'Learning, study, reading, and skill development.',
+    keywords: ['study', 'learn', 'course', 'read', 'practice', 'skill', 'exam', 'book'],
+    color: '#3b82f6',
+  },
+  {
+    name: 'Fun & Entertainment',
+    description: 'Leisure, hobbies, gaming, and entertainment.',
+    keywords: ['movie', 'game', 'fun', 'travel', 'music', 'hobby', 'netflix', 'youtube'],
+    color: '#ec4899',
+  },
+  {
+    name: 'Finance',
+    description: 'Budgeting, bills, savings, and financial planning.',
+    keywords: ['bill', 'budget', 'finance', 'money', 'investment', 'tax', 'payment'],
+    color: '#eab308',
+  },
+  {
+    name: 'Home & Environment',
+    description: 'Home maintenance, errands, cleaning, and organization.',
+    keywords: ['clean', 'home', 'kitchen', 'laundry', 'grocery', 'errand', 'organize'],
+    color: '#6366f1',
+  },
+];
+
+function inferLifeCategory(task: AnalyzeLifeBalanceInput['tasks'][number]): (typeof LIFE_CATEGORY_DEFINITIONS)[number] {
+  const combined = `${task.category || ''} ${task.name || ''} ${task.description || ''}`.toLowerCase();
+
+  for (const definition of LIFE_CATEGORY_DEFINITIONS) {
+    if (definition.keywords.some((keyword) => combined.includes(keyword))) {
+      return definition;
+    }
+  }
+
+  return LIFE_CATEGORY_DEFINITIONS[0];
+}
+
+function buildLifeBalanceFallback(input: AnalyzeLifeBalanceInput): AnalyzeLifeBalanceOutput {
+  const totalTasks = input.tasks.length;
+  if (totalTasks === 0) {
+    return {
+      categories: [],
+      totalTasks: 0,
+      balanceInsight: 'No tasks available yet for analysis.',
+      recommendation: 'Start by adding tasks to different life areas to get insights.',
+    };
+  }
+
+  const grouped = new Map<string, { count: number; tasks: string[]; definition: (typeof LIFE_CATEGORY_DEFINITIONS)[number] }>();
+
+  for (const task of input.tasks) {
+    const definition = inferLifeCategory(task);
+    const existing = grouped.get(definition.name);
+
+    if (existing) {
+      existing.count += 1;
+      if (existing.tasks.length < 3) {
+        existing.tasks.push(task.name);
+      }
+      continue;
+    }
+
+    grouped.set(definition.name, {
+      count: 1,
+      tasks: [task.name],
+      definition,
+    });
+  }
+
+  const categories = Array.from(grouped.values())
+    .sort((a, b) => b.count - a.count)
+    .map((entry) => ({
+      name: entry.definition.name,
+      count: entry.count,
+      percentage: Number(((entry.count / totalTasks) * 100).toFixed(1)),
+      description: entry.definition.description,
+      color: entry.definition.color,
+      tasks: entry.tasks,
+    }));
+
+  const top = categories[0];
+  const balanceInsight =
+    top && top.percentage >= 60
+      ? `Most of your tasks are concentrated in ${top.name}. Consider diversifying your weekly focus.`
+      : 'Your tasks are reasonably spread across multiple life areas.';
+
+  return {
+    categories,
+    totalTasks,
+    balanceInsight,
+    recommendation: 'Add clear categories while creating tasks for even more accurate AI life-balance insights.',
+  };
+}
+
 
 export async function handleCreateSchedule(input: CreateScheduleInput): Promise<CreateScheduleOutput> {
   try {
@@ -93,15 +212,15 @@ export async function handlePredictBurnout(input: PredictBurnoutInput): Promise<
 export async function handleAnalyzeLifeBalance(input: AnalyzeLifeBalanceInput): Promise<AnalyzeLifeBalanceOutput> {
   try {
     const result = await analyzeLifeBalanceFlow(input);
+
+    if (input.tasks.length > 0 && result.categories.length === 0) {
+      return buildLifeBalanceFallback(input);
+    }
+
     return result;
   } catch (error) {
     console.error('Error in handleAnalyzeLifeBalance:', error);
-    return { 
-      categories: [],
-      totalTasks: 0,
-      balanceInsight: "Error analyzing life balance. Please try again.",
-      recommendation: "Start by adding tasks to different life areas to get insights."
-    };
+    return buildLifeBalanceFallback(input);
   }
 }
 

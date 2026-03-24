@@ -9,6 +9,15 @@ import { getWeatherLocationPreference, getWeatherModePreference } from '@/lib/us
 import { useAuth } from '@/hooks/use-auth';
 import { loadUserSettingsFromDb } from '@/lib/user-settings-db';
 
+const WEATHER_CACHE_KEY = 'deyweaver.weather';
+const WEATHER_CACHE_TTL_MS = 3 * 60 * 1000;
+
+type CachedWeather = {
+  cacheKey: string;
+  data: WeatherResult;
+  fetchedAt: number;
+};
+
 export function WeatherWidget() {
   const { user } = useAuth();
   const [data, setData] = useState<WeatherResult | null>(null);
@@ -17,6 +26,45 @@ export function WeatherWidget() {
 
   useEffect(() => {
     let isActive = true;
+
+    function buildWeatherCacheKey(mode: string, location: string): string {
+      if (mode === 'manual') {
+        return `manual:${location.trim().toLowerCase()}`;
+      }
+      return 'device';
+    }
+
+    function tryReadCachedWeather(cacheKey: string): WeatherResult | null {
+      try {
+        const cachedRaw = localStorage.getItem(WEATHER_CACHE_KEY);
+        if (!cachedRaw) {
+          return null;
+        }
+
+        const cached = JSON.parse(cachedRaw) as CachedWeather;
+        const isFresh = Date.now() - cached.fetchedAt < WEATHER_CACHE_TTL_MS;
+        if (isFresh && cached.cacheKey === cacheKey && cached.data) {
+          return cached.data;
+        }
+      } catch (error) {
+        console.warn('Could not read cached weather:', error);
+      }
+
+      return null;
+    }
+
+    function writeCachedWeather(cacheKey: string, result: WeatherResult): void {
+      try {
+        const payload: CachedWeather = {
+          cacheKey,
+          data: result,
+          fetchedAt: Date.now(),
+        };
+        localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(payload));
+      } catch (error) {
+        console.warn('Could not cache weather:', error);
+      }
+    }
 
     async function run() {
       let weatherMode = getWeatherModePreference();
@@ -36,6 +84,17 @@ export function WeatherWidget() {
         return;
       }
 
+      const cacheKey = buildWeatherCacheKey(weatherMode, savedLocation);
+      const cachedWeather = tryReadCachedWeather(cacheKey);
+      if (cachedWeather) {
+        setData(cachedWeather);
+        if (!cachedWeather.ok && cachedWeather.error) {
+          setStatusMessage(cachedWeather.error);
+        }
+        setIsLoading(false);
+        return;
+      }
+
       if (weatherMode === 'manual') {
         if (!savedLocation) {
           setStatusMessage('Manual weather mode is enabled. Set a location in Settings.');
@@ -48,6 +107,7 @@ export function WeatherWidget() {
           return;
         }
         setData(result);
+        writeCachedWeather(cacheKey, result);
         if (!result.ok && result.error) {
           setStatusMessage(result.error);
         }
@@ -71,6 +131,7 @@ export function WeatherWidget() {
             return;
           }
           setData(result);
+          writeCachedWeather(cacheKey, result);
           if (!result.ok && result.error) {
             setStatusMessage(result.error);
           }
