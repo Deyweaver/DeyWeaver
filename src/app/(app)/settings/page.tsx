@@ -5,7 +5,9 @@ import { ThemeToggleSwitch } from '@/components/settings/theme-toggle-switch';
 import { PageHeader } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAuth } from '@/hooks/use-auth';
 import {
   getDefaultQuickLinks,
   getQuickLinksPreference,
@@ -17,9 +19,17 @@ import {
   type QuickLinkItem,
   type WeatherMode,
 } from '@/lib/user-preferences';
+import {
+  getDefaultDashboardWidgetPreferences,
+  loadDashboardWidgetPreferences,
+  saveDashboardWidgetPreferences,
+  type DashboardWidgetKey,
+  type DashboardWidgetPreferences,
+} from '@/lib/dashboard-preferences';
 import { Plus, Trash2 } from 'lucide-react';
 
 export default function SettingsPage() {
+  const { user } = useAuth();
   const [isMounted, setIsMounted] = useState(false);
   const [weatherMode, setWeatherMode] = useState<WeatherMode>('device');
   const [weatherLocation, setWeatherLocation] = useState('');
@@ -28,6 +38,8 @@ export default function SettingsPage() {
   const [newLinkLabel, setNewLinkLabel] = useState('');
   const [newLinkUrl, setNewLinkUrl] = useState('');
   const [quickLinkMessage, setQuickLinkMessage] = useState('');
+  const [widgetPreferences, setWidgetPreferences] = useState<DashboardWidgetPreferences>(getDefaultDashboardWidgetPreferences());
+  const [widgetPreferencesMessage, setWidgetPreferencesMessage] = useState('');
 
   useEffect(() => {
     setIsMounted(true);
@@ -35,6 +47,38 @@ export default function SettingsPage() {
     setWeatherLocation(getWeatherLocationPreference());
     setQuickLinks(getQuickLinksPreference());
   }, []);
+
+  useEffect(() => {
+    if (!isMounted) {
+      return;
+    }
+
+    let isActive = true;
+
+    async function loadPreferences() {
+      const preferences = await loadDashboardWidgetPreferences(user?.uid);
+      if (isActive) {
+        setWidgetPreferences(preferences);
+      }
+    }
+
+    loadPreferences();
+
+    return () => {
+      isActive = false;
+    };
+  }, [isMounted, user?.uid]);
+
+  const handleDashboardWidgetToggle = async (key: DashboardWidgetKey, checked: boolean) => {
+    const nextPreferences = {
+      ...widgetPreferences,
+      [key]: checked,
+    };
+
+    setWidgetPreferences(nextPreferences);
+    await saveDashboardWidgetPreferences(user?.uid, nextPreferences);
+    setWidgetPreferencesMessage('Dashboard widget choices saved.');
+  };
 
   const handleSaveWeatherLocation = () => {
     setWeatherModePreference(weatherMode);
@@ -200,6 +244,61 @@ export default function SettingsPage() {
           </div>
 
           {quickLinkMessage && <p className="text-sm text-muted-foreground">{quickLinkMessage}</p>}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className="space-y-4">
+          <div className="border-b border-border pb-4">
+            <h2 className="text-2xl font-semibold text-foreground">Dashboard Widgets</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Choose what appears on your dashboard. These choices are saved to your account in the database.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <label className="flex items-center justify-between rounded-lg border border-border bg-background p-3">
+              <span className="text-sm font-medium text-foreground">Direct Search</span>
+              <Checkbox
+                checked={widgetPreferences.directSearch}
+                onCheckedChange={(checked) => handleDashboardWidgetToggle('directSearch', checked === true)}
+              />
+            </label>
+
+            <label className="flex items-center justify-between rounded-lg border border-border bg-background p-3">
+              <span className="text-sm font-medium text-foreground">Weather</span>
+              <Checkbox
+                checked={widgetPreferences.weather}
+                onCheckedChange={(checked) => handleDashboardWidgetToggle('weather', checked === true)}
+              />
+            </label>
+
+            <label className="flex items-center justify-between rounded-lg border border-border bg-background p-3">
+              <span className="text-sm font-medium text-foreground">Quote Of The Day</span>
+              <Checkbox
+                checked={widgetPreferences.quote}
+                onCheckedChange={(checked) => handleDashboardWidgetToggle('quote', checked === true)}
+              />
+            </label>
+
+            <label className="flex items-center justify-between rounded-lg border border-border bg-background p-3">
+              <span className="text-sm font-medium text-foreground">Top News</span>
+              <Checkbox
+                checked={widgetPreferences.news}
+                onCheckedChange={(checked) => handleDashboardWidgetToggle('news', checked === true)}
+              />
+            </label>
+
+            <label className="flex items-center justify-between rounded-lg border border-border bg-background p-3">
+              <span className="text-sm font-medium text-foreground">Quick Links</span>
+              <Checkbox
+                checked={widgetPreferences.quickLinks}
+                onCheckedChange={(checked) => handleDashboardWidgetToggle('quickLinks', checked === true)}
+              />
+            </label>
+          </div>
+
+          {widgetPreferencesMessage && <p className="text-sm text-muted-foreground">{widgetPreferencesMessage}</p>}
         </div>
       </div>
     </div>
