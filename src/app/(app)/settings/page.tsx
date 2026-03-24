@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { ThemeToggleSwitch } from '@/components/settings/theme-toggle-switch';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import { PageHeader } from '@/components/layout/page-header';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -38,12 +39,11 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-3xl space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-light text-foreground">Settings</h1>
-        <p className="text-lg text-muted-foreground">
-          Manage your account and preferences.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Preferences"
+        title="Settings"
+        description="Manage your account and preferences."
+      />
 
       {/* Appearance Settings */}
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">

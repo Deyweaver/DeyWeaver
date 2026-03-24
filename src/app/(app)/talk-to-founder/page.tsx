@@ -5,20 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { PageHeader } from '@/components/layout/page-header';
 
 export default function TalkToFounderPage() {
   const calendlyLink = "https://calendly.com/aryanbrite/30min";
 
   return (
     <div className="container mx-auto py-8 space-y-8">
-      <Card className="shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold">Talk to the Founder</CardTitle>
-          <CardDescription className="text-lg">
-            Share your thoughts and help shape Day Weaver.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <PageHeader
+        eyebrow="Community"
+        title="Talk to the Founder"
+        description="Share your thoughts and help shape Dey Weaver."
+      />
 
       <Card>
         <CardHeader>

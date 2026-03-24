@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CalendarPlus, ListChecks, BarChart3, CalendarDays } from 'lucide-react';
+import { PageHeader } from '@/components/layout/page-header';
 
 export default function DashboardPage() {
   const features = [
@@ -41,15 +42,11 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header Section */}
-      <div className="space-y-3">
-        <h1 className="text-4xl font-light text-foreground">
-          Welcome to Dey Weaver
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Your day, your goals, no stress. Let AI handle the mess.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Dashboard"
+        title="Welcome to Dey Weaver"
+        description="Your day, your goals, no stress. Let AI handle the mess."
+      />
 
       {/* Feature Grid */}
       <div className="grid gap-6 md:grid-cols-2">

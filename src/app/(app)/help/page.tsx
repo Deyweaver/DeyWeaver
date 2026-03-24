@@ -1,18 +1,18 @@
 
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
+import { PageHeader } from '@/components/layout/page-header';
 
 export default function HelpPage() {
   const supportEmail = 'aryanbrite@gmail.com';
 
   return (
     <div className="space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-light text-foreground">Help & Support</h1>
-        <p className="text-lg text-muted-foreground">
-          Get assistance with Dey Weaver.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Support"
+        title="Help & Support"
+        description="Get assistance with Dey Weaver."
+      />
 
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <div className="space-y-4">

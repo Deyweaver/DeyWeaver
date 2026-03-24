@@ -1,14 +1,14 @@
 import { MeetingPrepForm } from '@/components/meeting/meeting-prep-form';
+import { PageHeader } from '@/components/layout/page-header';
 
 export default function MeetingPrepPage() {
   return (
     <div className="space-y-8 max-w-4xl">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-light text-foreground">Meeting Preparation</h1>
-        <p className="text-lg text-muted-foreground">
-          Get AI-powered insights and talking points for your upcoming meetings.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Meetings"
+        title="Meeting Preparation"
+        description="Get AI-powered insights and talking points for your upcoming meetings."
+      />
       <MeetingPrepForm />
     </div>
   );

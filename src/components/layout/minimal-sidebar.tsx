@@ -100,7 +100,7 @@ export function MinimalSidebar() {
                 'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300',
                 'hover:bg-secondary hover:shadow-md',
                 isActive
-                  ? 'bg-primary/10 dark:bg-primary/20 text-primary shadow-md'
+                  ? 'bg-primary text-primary-foreground border border-primary shadow-md'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >

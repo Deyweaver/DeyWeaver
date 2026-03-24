@@ -48,7 +48,7 @@ export function SidebarNav() {
           <SidebarMenuButton
             isActive={pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))}
             tooltip={item.label}
-            className="w-full justify-start"
+            className="w-full justify-start rounded-xl border border-transparent transition-colors hover:bg-secondary hover:text-foreground data-[active=true]:border-primary data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
           >
             <item.icon className="h-5 w-5" />
             <span>{item.label}</span>
