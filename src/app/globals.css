@@ -33,25 +33,25 @@
   }
 
   .dark {
-    /* Dark mode - back to original deep dark */
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    /* Dark mode - warm vintage gray base for better orange harmony */
+    --background: 24 10% 16%;
+    --foreground: 36 20% 92%;
+    --card: 24 10% 20%;
+    --card-foreground: 36 20% 92%;
+    --popover: 24 10% 19%;
+    --popover-foreground: 36 20% 92%;
     --primary: 18 75% 55%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --secondary: 26 9% 24%;
+    --secondary-foreground: 36 20% 92%;
+    --muted: 26 8% 23%;
+    --muted-foreground: 30 12% 70%;
+    --accent: 28 12% 26%;
+    --accent-foreground: 36 20% 92%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
+    --border: 28 10% 30%;
+    --input: 28 9% 27%;
     --ring: 18 75% 55%;
     --chart-1: 18 75% 55%;
     --chart-2: 18 75% 65%;
@@ -124,7 +124,7 @@
   }
 
   .dark .glass-effect {
-    background: rgba(20, 20, 20, 0.7);
+    background: rgba(52, 46, 42, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
@@ -144,7 +144,7 @@
   }
 
   .dark .card-soft {
-    background: rgba(20, 20, 20, 0.7);
+    background: rgba(56, 49, 44, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
