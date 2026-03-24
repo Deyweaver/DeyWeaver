@@ -98,10 +98,10 @@ export function MinimalSidebar() {
               title={item.title}
               className={cn(
                 'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300',
-                'hover:bg-gray-100 hover:shadow-md',
+                'hover:bg-secondary hover:shadow-md',
                 isActive
-                  ? 'bg-orange-100 text-orange-600 shadow-md'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-primary/10 dark:bg-primary/20 text-primary shadow-md'
+                  : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {item.icon}
@@ -111,10 +111,10 @@ export function MinimalSidebar() {
       </nav>
 
       {/* Bottom Actions */}
-      <div className="flex flex-col gap-2 border-t border-gray-200 pt-4">
+      <div className="flex flex-col gap-2 border-t border-border pt-4">
         <button
           title="Expand"
-          className="w-12 h-12 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 flex items-center justify-center"
+          className="w-12 h-12 rounded-xl text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-300 flex items-center justify-center"
         >
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />

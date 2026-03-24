@@ -147,7 +147,7 @@ export function ChatbotScheduleCreator() {
             <div className="w-full max-w-3xl space-y-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl opacity-60" />
-                <div className="relative bg-white rounded-2xl p-1 shadow-lg">
+                <div className="relative bg-card rounded-2xl p-1 shadow-lg">
                   <div className="flex items-center gap-3 px-6 py-4">
                     <Input
                       type="text"
@@ -188,9 +188,9 @@ export function ChatbotScheduleCreator() {
 
                 {message.type === 'ai' && (
                   <div className="flex justify-start">
-                    <div className="max-w-md bg-white text-gray-900 px-4 py-3 rounded-lg rounded-bl-none shadow-md">
+                    <div className="max-w-md bg-secondary dark:bg-muted text-foreground px-4 py-3 rounded-lg rounded-bl-none shadow-md">
                       <p className="text-sm leading-relaxed">{message.content}</p>
-                      <span className="text-xs text-gray-500 mt-2 block">
+                      <span className="text-xs text-muted-foreground mt-2 block">
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
@@ -199,7 +199,7 @@ export function ChatbotScheduleCreator() {
 
                 {message.type === 'task' && message.tasks && (
                   <div className="flex justify-start">
-                    <div className="max-w-2xl bg-white rounded-lg rounded-bl-none shadow-md p-4 space-y-3">
+                    <div className="max-w-2xl bg-secondary dark:bg-muted rounded-lg rounded-bl-none shadow-md p-4 space-y-3">
                       <p className="text-sm font-medium text-gray-900 flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
                         {message.content}
@@ -241,7 +241,7 @@ export function ChatbotScheduleCreator() {
 
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white px-4 py-3 rounded-lg rounded-bl-none flex items-center gap-2 shadow-md">
+                <div className="bg-card px-4 py-3 rounded-lg rounded-bl-none flex items-center gap-2 shadow-md">
                   <Loader className="h-4 w-4 animate-spin text-orange-600" />
                   <span className="text-sm text-gray-600">AI is processing...</span>
                 </div>
@@ -255,7 +255,7 @@ export function ChatbotScheduleCreator() {
 
       {/* Examples Section (shown when no messages) */}
       {messages.length === 0 && (
-        <div className="border-t border-gray-200 bg-white p-6 px-8">
+        <div className="border-t border-border bg-card p-6 px-8">
           <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-4">
             Try one of these prompts
           </p>
@@ -282,11 +282,11 @@ export function ChatbotScheduleCreator() {
 
       {/* Input Area (shown after first message) */}
       {messages.length > 0 && !isLoading && (
-        <div className="border-t border-gray-200 bg-white p-6">
+        <div className="border-t border-border bg-card p-6">
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl opacity-60" />
-              <div className="relative bg-white rounded-2xl p-1 shadow-lg">
+              <div className="relative bg-card rounded-2xl p-1 shadow-lg">
                 <div className="flex items-center gap-3 px-6 py-4">
                   <Input
                     type="text"

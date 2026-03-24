@@ -25,6 +25,12 @@ import {
   type PredictBurnoutOutput
 } from '@/ai/flows/predict-burnout';
 
+import {
+  analyzeLifeBalance as analyzeLifeBalanceFlow,
+  type AnalyzeLifeBalanceInput,
+  type AnalyzeLifeBalanceOutput
+} from '@/ai/flows/analyze-life-balance';
+
 
 export async function handleCreateSchedule(input: CreateScheduleInput): Promise<CreateScheduleOutput> {
   try {
@@ -80,6 +86,21 @@ export async function handlePredictBurnout(input: PredictBurnoutInput): Promise<
       progressValue: 50,
       message: "Error predicting burnout risk. Please monitor your well-being.",
       contributingFactors: ["Analysis service unavailable"]
+    };
+  }
+}
+
+export async function handleAnalyzeLifeBalance(input: AnalyzeLifeBalanceInput): Promise<AnalyzeLifeBalanceOutput> {
+  try {
+    const result = await analyzeLifeBalanceFlow(input);
+    return result;
+  } catch (error) {
+    console.error('Error in handleAnalyzeLifeBalance:', error);
+    return { 
+      categories: [],
+      totalTasks: 0,
+      balanceInsight: "Error analyzing life balance. Please try again.",
+      recommendation: "Start by adding tasks to different life areas to get insights."
     };
   }
 }
