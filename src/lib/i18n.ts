@@ -31,7 +31,7 @@ i18n
       caches: ['localStorage'],
     },
     interpolation: {
-      escapeValue: false, // React already safes from xss
+      escapeValue: false, // we vibin this works
     },
     ns: ['common'],
     defaultNS: 'common',

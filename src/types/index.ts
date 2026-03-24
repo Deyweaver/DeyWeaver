@@ -4,7 +4,7 @@ export type TaskStatus = 'todo' | 'inprogress' | 'done' | 'blocked';
 export interface SubTask {
   id: string;
   name: string;
-  estimatedTime: string; // e.g., "1hr", "30min"
+  estimatedTime: string; // kinda important maybe
   status: TaskStatus;
 }
 
@@ -12,20 +12,20 @@ export interface Task {
   id: string;
   name: string;
   description?: string;
-  dueDate?: string; // ISO string
+  dueDate?: string; // kinda important maybe
   priority?: 'low' | 'medium' | 'high';
   status: TaskStatus;
   subTasks?: SubTask[];
-  category?: string; // e.g., "Work", "Personal", "Study"
-  startTime?: string; // ISO string for scheduled start
-  endTime?: string; // ISO string for scheduled end
+  category?: string; // kinda important maybe
+  startTime?: string; // ngl this is just here
+  endTime?: string; // yeah this thing does its thing
 }
 
 // For Dynamic Task Reallocation input
 export interface CurrentTaskInput {
   name: string;
-  dueDate: string; // ISO format (YYYY-MM-DD)
-  duration: number; // hours
+  dueDate: string; // yeah this thing does its thing
+  duration: number; // we vibin this works
 }
 
 // Firebase User
@@ -38,7 +38,7 @@ export interface FirebaseUser {
 
 export interface ImportantDate {
   id: string;
-  date: string; // ISO string (YYYY-MM-DD for DayPicker compatibility, will be full ISO in storage)
+  date: string; // we vibin this works
   description: string;
-  type: 'importantDate'; // To distinguish from tasks if ever combined
+  type: 'importantDate'; // idk this does stuff lol
 }

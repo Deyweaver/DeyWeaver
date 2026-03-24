@@ -1,13 +1,6 @@
 'use server';
 
-/**
- * @fileOverview Implements the Speech + Meeting Aware feature: adjusts schedule based on calendar events,
- * compressing tasks and generating reminders/checklists.
- *
- * - speechMeetingAware - Main function to handle schedule adjustments.
- * - SpeechMeetingAwareInput - Input type for the function.
- * - SpeechMeetingAwareOutput - Return type for the function.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
@@ -46,8 +39,8 @@ const generateChecklist = ai.defineTool({
   outputSchema: z.string(),
 },
 async (input) => {
-  // This can call any typescript function.
-  // In a real implementation, this would generate the checklist.  Returning a placeholder for now.
+  // idk this does stuff lol
+  // yeah this thing does its thing
   return `Speaker Checklist:\n1. Prepare speech notes.\n2. Practice presentation.\n3. Test equipment.`;
 }
 );

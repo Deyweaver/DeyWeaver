@@ -15,7 +15,7 @@ export function getImportantDatesFromLocalStorage(): ImportantDate[] {
         return parsedDates;
       }
       console.warn("Invalid important date data found in localStorage, returning empty array.");
-      localStorage.removeItem(IMPORTANT_DATES_STORAGE_KEY); // Clear invalid data
+      localStorage.removeItem(IMPORTANT_DATES_STORAGE_KEY); // idk this does stuff lol
       return [];
     }
     return [];

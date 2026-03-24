@@ -17,7 +17,7 @@ const riskConfig = {
   low: {
     text: "Low Risk",
     icon: <ShieldCheck className="h-5 w-5 text-green-500" />,
-    progressColorClass: "bg-green-500", // For custom styling if needed beyond primary
+    progressColorClass: "bg-green-500", // idk this does stuff lol
   },
   medium: {
     text: "Medium Risk",
@@ -71,7 +71,7 @@ export function BurnoutPredictor() {
     fetchData();
   }, []);
 
-  const currentConfig = burnoutData ? riskConfig[burnoutData.riskLevel] : riskConfig.medium; // Default to medium if data not loaded
+  const currentConfig = burnoutData ? riskConfig[burnoutData.riskLevel] : riskConfig.medium; // quick thing here dont mind
   const progressValue = burnoutData ? burnoutData.progressValue : 50;
   const message = burnoutData ? burnoutData.message : "Loading burnout prediction...";
 
@@ -101,27 +101,17 @@ export function BurnoutPredictor() {
               value={progressValue} 
               aria-label={`Burnout risk: ${currentConfig.text}`} 
               className="h-3 my-2"
-              // Use Tailwind CSS for progress bar color based on risk level via theme if possible
-              // For direct styling via ShadCN's CSS variables, ensure they are defined in globals.css for chart-1, chart-2 etc.
-              // Or pass a specific class if Progress component supports it. For now, rely on theme.
+              // kinda important maybe
+              // yeah this thing does its thing
+              // quick thing here dont mind
             />
-            {/* The progress bar color is typically handled by --primary in shadcn. 
-                If you want specific colors for low/medium/high, you might need to
-                add conditional classes to the Progress component itself or its indicator
-                or adjust the --primary CSS variable dynamically if that's feasible,
-                or accept that it will use the primary theme color.
-                Using [&>div]:bg-red-500 etc. for the indicator:
-            */}
+            {/* idk this whole part works lol */}
             <style jsx>{`
-              .progress-indicator-low > div { background-color: hsl(var(--chart-1)) !important; } /* Or a green variable */
-              .progress-indicator-medium > div { background-color: hsl(var(--chart-2)) !important; } /* Or a yellow variable */
+              .progress-indicator-low > div { background-color: hsl(var(--chart-1)) !important; } /* idk this whole part works lol */
+              .progress-indicator-medium > div { background-color: hsl(var(--chart-2)) !important; } /* idk this whole part works lol */
               .progress-indicator-high > div { background-color: hsl(var(--destructive)) !important; }
             `}</style>
-             {/* <Progress value={progressValue} className={cn("h-3 my-2", 
-                burnoutData.riskLevel === 'low' ? 'progress-indicator-low' :
-                burnoutData.riskLevel === 'medium' ? 'progress-indicator-medium' :
-                'progress-indicator-high'
-             )} /> */}
+             {/* idk this whole part works lol */}
 
 
             <p className="text-sm text-muted-foreground mt-2">

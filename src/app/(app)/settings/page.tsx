@@ -204,7 +204,7 @@ export default function SettingsPage() {
         description="Manage your account and preferences."
       />
 
-      {/* Appearance Settings */}
+      {/* idk this whole part works lol */}
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <div className="space-y-4">
           <div className="border-b border-border pb-4">

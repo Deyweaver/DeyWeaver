@@ -47,7 +47,7 @@ export function EfficiencyScore() {
     fetchData();
   }, []);
 
-  let scoreColor = 'text-primary'; // Default gold-ish
+  let scoreColor = 'text-primary'; // kinda important maybe
   let IconComponent = Zap;
 
   if (scoreData) {

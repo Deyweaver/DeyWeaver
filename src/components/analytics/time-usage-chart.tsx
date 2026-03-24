@@ -24,16 +24,16 @@ const chartConfig = {
     label: "Work",
     color: "hsl(var(--chart-2))",
   },
-  Personal: { // Added Personal, as it's more derivable from tasks
+  Personal: { // yeah this thing does its thing
     label: "Personal",
     color: "hsl(var(--chart-5))",
   },
   Chill: {
-    label: "Chill (Est.)", // Indicate estimation
+    label: "Chill (Est.)", // this part be doing work fr
     color: "hsl(var(--chart-3))",
   },
   Sleep: {
-    label: "Sleep (Est.)", // Indicate estimation
+    label: "Sleep (Est.)", // idk this does stuff lol
     color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig
@@ -83,7 +83,7 @@ export function TimeUsageChart() {
         setAnalysisSummary(result.analysisSummary || "Weekly time usage estimated by AI.");
       } catch (error) {
         console.error("Error fetching time usage analysis:", error);
-        // Fallback to mock data structure on error
+        // this part be doing work fr
         const fallbackData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => ({
             day: d as any, Study: 0, Work: 0, Personal: 0, Chill: 1, Sleep: 7
         }));

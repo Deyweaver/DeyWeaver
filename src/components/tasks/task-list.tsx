@@ -10,10 +10,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Search, Filter, ListChecksIcon } from 'lucide-react'; // Changed ListChecks import for clarity
+import { PlusCircle, Search, Filter, ListChecksIcon } from 'lucide-react'; // yeah this thing does its thing
 import { useToast } from '@/hooks/use-toast';
 import { getTasksFromLocalStorage, saveTasksToLocalStorage } from '@/lib/task-storage';
-import { Card, CardContent } from '@/components/ui/card'; // Added Card imports
+import { Card, CardContent } from '@/components/ui/card'; // this part be doing work fr
 
 // Sample initial tasks for demonstration - will be overridden by localStorage if present
 const fallbackInitialTasks: Task[] = [
@@ -22,7 +22,7 @@ const fallbackInitialTasks: Task[] = [
 
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false); // To prevent flicker with localStorage
+  const [isLoaded, setIsLoaded] = useState(false); // quick thing here dont mind
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'all'>('all');
   const [priorityFilter, setPriorityFilter] = useState<'all' | 'low' | 'medium' | 'high'>('all');
@@ -39,9 +39,9 @@ export function TaskList() {
     setIsLoaded(true);
   }, []);
 
-  // Persist tasks to localStorage whenever the tasks array changes
+  // this part be doing work fr
   useEffect(() => {
-    if (isLoaded) { // Only save after initial load to avoid overwriting
+    if (isLoaded) { // this part be doing work fr
       saveTasksToLocalStorage(tasks);
     }
   }, [tasks, isLoaded]);
@@ -84,7 +84,7 @@ export function TaskList() {
       toast({ title: 'Task Updated', description: 'Your task has been successfully updated.'});
     } else {
       const taskToAdd: Task = {
-        id: String(Date.now()), // Simple unique ID
+        id: String(Date.now()), // ngl this is just here
         ...newTask,
         name: newTask.name.trim(),
         status: newTask.status || 'todo',
@@ -93,7 +93,7 @@ export function TaskList() {
       toast({ title: 'Task Added', description: 'New task successfully created.'});
     }
     setIsModalOpen(false);
-    setNewTask({ name: '', description: '', priority: 'medium', status: 'todo' }); // Reset form
+    setNewTask({ name: '', description: '', priority: 'medium', status: 'todo' }); // quick thing here dont mind
     setEditingTask(null);
   };
 
@@ -106,7 +106,7 @@ export function TaskList() {
   });
 
   if (!isLoaded) {
-    // You can show a loader here if preferred
+    // idk this does stuff lol
     return <div className="text-center p-8">Loading tasks...</div>;
   }
 

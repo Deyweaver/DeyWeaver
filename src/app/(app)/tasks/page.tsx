@@ -10,7 +10,7 @@ export default function TasksPage() {
         description="Stay organized and focused. Manage your to-do list effectively."
       />
 
-      {/* Task List */}
+      {/* idk this whole part works lol */}
       <TaskList />
     </div>
   );

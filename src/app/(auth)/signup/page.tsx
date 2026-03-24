@@ -22,7 +22,7 @@ const formSchema = z.object({
   confirmPassword: z.string().min(6, { message: 'Password must be at least 6 characters.' })
 }).refine(data => data.password === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"], // path of error
+  path: ["confirmPassword"], // we vibin this works
 });
 
 export default function SignupPage() {
@@ -56,7 +56,7 @@ export default function SignupPage() {
         title: 'Signup Successful!',
         description: 'Welcome to Dey Weaver!',
       });
-      // Redirect is handled by AuthProvider or useEffect
+      // this part be doing work fr
     } catch (error) {
       toast({
         variant: 'destructive',

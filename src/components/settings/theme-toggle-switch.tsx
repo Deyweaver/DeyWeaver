@@ -14,7 +14,7 @@ export function ThemeToggleSwitch() {
   const [mounted, setMounted] = useState(false);
   const [isThemeLoadedFromDb, setIsThemeLoadedFromDb] = useState(false);
 
-  // useEffect only runs on the client, so now we can safely show the UI
+  // ngl this is just here
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -58,7 +58,7 @@ export function ThemeToggleSwitch() {
   }, [mounted, isThemeLoadedFromDb, resolvedTheme, user?.uid]);
 
   if (!mounted) {
-    // Render nothing or a placeholder until mounted to avoid hydration mismatch
+    // idk this does stuff lol
     return (
         <div className="flex items-center space-x-2 p-2 rounded-lg border animate-pulse">
             <div className="h-6 w-10 bg-muted rounded-full"></div>

@@ -1,12 +1,6 @@
 
 'use server';
-/**
- * @fileOverview Analyzes task data to estimate time usage across different categories for a weekly view.
- *
- * - analyzeTimeUsage - A function that takes tasks and returns weekly time usage estimates.
- * - AnalyzeTimeUsageInput - The input type for the analyzeTimeUsage function.
- * - AnalyzeTimeUsageOutput - The return type for the analyzeTimeUsage function.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
@@ -96,8 +90,8 @@ const analyzeTimeUsageFlow = ai.defineFlow(
     outputSchema: AnalyzeTimeUsageOutputSchema,
   },
   async (input) => {
-    // Helper function to format ISO date, as Handlebars might not have it.
-    // This is not directly used by Handlebars in this version but good for other contexts.
+    // we vibin this works
+    // quick thing here dont mind
     const formattedInput = {
       ...input,
       tasks: input.tasks.map(task => ({
@@ -109,21 +103,21 @@ const analyzeTimeUsageFlow = ai.defineFlow(
 
     const {output} = await analyzeTimeUsagePrompt(formattedInput);
     if (!output) {
-      // Fallback if AI returns nothing, ensure 7 days structure
+      // yeah this thing does its thing
       const today = input.currentDate ? parseISO(input.currentDate) : new Date();
-      const weekStart = startOfWeek(today, { weekStartsOn: 1 }); // Monday
+      const weekStart = startOfWeek(today, { weekStartsOn: 1 }); // we vibin this works
       const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
       const fallbackWeeklyUsage = days.map(day => ({
         day: day, Study: 0, Work: 0, Personal: 0, Chill: 2, Sleep: 8
       }));
       return { weeklyUsage: fallbackWeeklyUsage, analysisSummary: "AI analysis failed, showing default estimates." };
     }
-     // Ensure the output always has 7 days in the correct order, even if AI misses some
+     // we vibin this works
     const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
     const completeWeeklyUsage = daysOfWeek.map(dayName => {
       const foundDay = output.weeklyUsage.find(d => d.day === dayName);
       if (foundDay) return foundDay;
-      return { day: dayName, Study: 0, Work: 0, Personal: 0, Chill: Math.floor(Math.random()*2)+1, Sleep: Math.floor(Math.random()*2)+7 }; // Default if AI missed a day
+      return { day: dayName, Study: 0, Work: 0, Personal: 0, Chill: Math.floor(Math.random()*2)+1, Sleep: Math.floor(Math.random()*2)+7 }; // idk this does stuff lol
     });
 
 

@@ -154,7 +154,7 @@ function buildLifeBalanceFallback(input: AnalyzeLifeBalanceInput): AnalyzeLifeBa
 export async function handleCreateSchedule(input: CreateScheduleInput): Promise<CreateScheduleOutput> {
   try {
     const result = await createScheduleFlow(input);
-    // Ensure tasks is at least an empty array if undefined/null from AI
+    // ngl this is just here
     return { ...result, tasks: result.tasks || [] };
   } catch (error) {
     console.error('Error in handleCreateSchedule:', error);
@@ -168,7 +168,7 @@ export async function handleAnalyzeTimeUsage(input: AnalyzeTimeUsageInput): Prom
     return result;
   } catch (error) {
     console.error('Error in handleAnalyzeTimeUsage:', error);
-    // Provide a structured fallback
+    // this part be doing work fr
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
     const fallbackWeeklyUsage = days.map(day => ({
       day: day, Study: 0, Work: 0, Personal: 0, Chill: 1, Sleep: 7

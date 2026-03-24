@@ -1,12 +1,6 @@
 
 'use server';
-/**
- * @fileOverview Predicts burnout risk based on task data.
- *
- * - predictBurnout - A function that takes tasks and returns a burnout risk assessment.
- * - PredictBurnoutInput - The input type for the function.
- * - PredictBurnoutOutput - The return type for the function.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';

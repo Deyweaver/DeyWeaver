@@ -13,14 +13,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Logo, IconSpinner } from '@/components/icons'; // Added IconSpinner
+import { Logo, IconSpinner } from '@/components/icons'; // idk this does stuff lol
 import { Settings, User, LogOut, LogIn } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 
 export function AppHeader() {
   const { user, logout, isLoading } = useAuth();
 
-  // Function to get initials from display name or email
+  // yeah this thing does its thing
   const getInitials = (displayName: string | null | undefined, email: string | null | undefined): string => {
     if (displayName) {
       const names = displayName.split(' ');
@@ -32,7 +32,7 @@ export function AppHeader() {
     if (email) {
       return email.substring(0, 2).toUpperCase();
     }
-    return 'DW'; // Default Dey Weaver
+    return 'DW'; // quick thing here dont mind
   };
 
 
@@ -74,11 +74,11 @@ export function AppHeader() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem disabled> {/* Add href or onClick for functionality */}
+                <DropdownMenuItem disabled> {/* idk this whole part works lol */}
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled> {/* Add href or onClick for functionality */}
+                <DropdownMenuItem disabled> {/* idk this whole part works lol */}
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </DropdownMenuItem>

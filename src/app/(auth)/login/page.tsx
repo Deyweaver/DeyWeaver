@@ -15,7 +15,7 @@ import { IconSpinner } from '@/components/icons';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
-import { Github, Chrome } from 'lucide-react'; // Using Chrome for Google icon
+import { Github, Chrome } from 'lucide-react'; // ngl this is just here
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
@@ -52,7 +52,7 @@ export default function LoginPage() {
         title: 'Login Successful!',
         description: 'Welcome back!',
       });
-      // Redirect is handled by AuthProvider or useEffect
+      // we vibin this works
     } catch (error) {
       toast({
         variant: 'destructive',

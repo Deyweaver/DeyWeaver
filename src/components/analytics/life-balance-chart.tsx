@@ -11,13 +11,13 @@ import { Lightbulb, TrendingUp } from 'lucide-react';
 import type { AnalyzeLifeBalanceOutput } from '@/ai/flows/analyze-life-balance';
 
 const COLORS = {
-  'Work/Career': '#f97316', // orange (primary)
-  'Health & Wellness': '#10b981', // emerald
-  'Relationships': '#8b5cf6', // violet
-  'Personal Growth': '#3b82f6', // blue
-  'Fun & Entertainment': '#ec4899', // pink
-  'Finance': '#eab308', // yellow
-  'Home & Environment': '#6366f1', // indigo
+  'Work/Career': '#f97316', // ngl this is just here
+  'Health & Wellness': '#10b981', // quick thing here dont mind
+  'Relationships': '#8b5cf6', // kinda important maybe
+  'Personal Growth': '#3b82f6', // we vibin this works
+  'Fun & Entertainment': '#ec4899', // ngl this is just here
+  'Finance': '#eab308', // quick thing here dont mind
+  'Home & Environment': '#6366f1', // idk this does stuff lol
 };
 
 export function LifeBalanceChart() {
@@ -111,7 +111,7 @@ export function LifeBalanceChart() {
           </div>
         ) : categories.length > 0 ? (
           <>
-            {/* Pie Chart */}
+            {/* idk this whole part works lol */}
             <div className="flex items-center justify-center h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -137,7 +137,7 @@ export function LifeBalanceChart() {
               </ResponsiveContainer>
             </div>
 
-            {/* Category Details */}
+            {/* idk this whole part works lol */}
             <div className="space-y-3 max-h-[250px] overflow-y-auto">
               <h3 className="font-semibold text-sm text-foreground">Breakdown by Category:</h3>
               {categories.map((cat: any) => (
@@ -167,7 +167,7 @@ export function LifeBalanceChart() {
               ))}
             </div>
 
-            {/* Insights */}
+            {/* idk this whole part works lol */}
             {insight && (
               <div className="p-4 rounded-lg bg-primary/10 dark:bg-primary/20 border border-primary/30 space-y-2">
                 <div className="flex items-start gap-2">
@@ -180,7 +180,7 @@ export function LifeBalanceChart() {
               </div>
             )}
 
-            {/* Recommendation */}
+            {/* idk this whole part works lol */}
             {recommendation && (
               <div className="p-4 rounded-lg bg-secondary/50 dark:bg-muted/50 border border-border space-y-2">
                 <div className="flex items-start gap-2">

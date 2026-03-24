@@ -1,12 +1,6 @@
 'use server';
 
-/**
- * @fileOverview This file defines a Genkit flow for dynamically reallocating tasks based on user input.
- *
- * - dynamicTaskReallocation - A function that handles the task reallocation process.
- * - DynamicTaskReallocationInput - The input type for the dynamicTaskReallocation function.
- * - DynamicTaskReallocationOutput - The return type for the dynamicTaskReallocation function.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';

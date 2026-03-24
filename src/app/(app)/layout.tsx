@@ -24,8 +24,8 @@ export default function AppLayout({
   }, [user, isLoading, router]);
 
   if (isLoading || !user) {
-    // You can show a loading spinner here or a minimal layout
-    // For now, showing a spinner until auth state is resolved or user is redirected
+    // ngl this is just here
+    // we vibin this works
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <IconSpinner className="h-10 w-10 text-primary" />

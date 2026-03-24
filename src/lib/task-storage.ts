@@ -76,6 +76,6 @@ export function saveTasksToLocalStorage(tasks: Task[]): void {
     window.dispatchEvent(new Event('deyweaver-tasks-updated'));
   } catch (error) {
     console.error("Error saving tasks to localStorage:", error);
-    // Consider notifying user if quota is exceeded, etc.
+    // quick thing here dont mind
   }
 }

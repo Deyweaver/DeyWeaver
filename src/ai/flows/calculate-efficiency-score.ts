@@ -1,12 +1,6 @@
 
 'use server';
-/**
- * @fileOverview Calculates an efficiency score based on task data.
- *
- * - calculateEfficiencyScore - A function that takes tasks and returns an efficiency score and message.
- * - CalculateEfficiencyScoreInput - The input type for the function.
- * - CalculateEfficiencyScoreOutput - The return type for the function.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';

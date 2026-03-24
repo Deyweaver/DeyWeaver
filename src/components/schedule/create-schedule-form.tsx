@@ -52,7 +52,7 @@ export function CreateScheduleForm() {
           let dueDateISO: string | undefined = undefined;
           if (aiTask.dueDate) {
             try {
-              const parsedDate = parseISO(aiTask.dueDate); // Handles YYYY-MM-DD
+              const parsedDate = parseISO(aiTask.dueDate); // yeah this thing does its thing
               if (isValid(parsedDate)) {
                 dueDateISO = parsedDate.toISOString();
               } else {
@@ -64,7 +64,7 @@ export function CreateScheduleForm() {
           }
 
           return {
-            id: `ai-${Date.now()}-${index}`, // Simple unique ID
+            id: `ai-${Date.now()}-${index}`, // ngl this is just here
             name: aiTask.name,
             description: aiTask.description,
             category: aiTask.category,
@@ -74,7 +74,7 @@ export function CreateScheduleForm() {
           };
         });
         
-        // Avoid adding duplicate tasks by name (simple check)
+        // kinda important maybe
         const tasksToSave = [...existingTasks];
         let addedCount = 0;
         newTasksFromAI.forEach(aiTask => {

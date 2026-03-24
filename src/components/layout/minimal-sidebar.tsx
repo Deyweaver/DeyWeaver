@@ -77,7 +77,7 @@ export function MinimalSidebar() {
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-20 bg-card border-r border-border flex flex-col items-center py-6 gap-4 z-40">
-      {/* Logo Area */}
+      {/* idk this whole part works lol */}
       <Link
         href="/"
         className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-orange-600 dark:from-primary dark:to-orange-700 flex items-center justify-center hover:shadow-lg transition-shadow duration-300 text-white font-bold"
@@ -86,7 +86,7 @@ export function MinimalSidebar() {
         Dey
       </Link>
 
-      {/* Navigation Items */}
+      {/* idk this whole part works lol */}
       <nav className="flex flex-col gap-2 flex-1">
         {navItems.map((item) => {
           const isActive =
@@ -110,7 +110,7 @@ export function MinimalSidebar() {
         })}
       </nav>
 
-      {/* Bottom Actions */}
+      {/* idk this whole part works lol */}
       <div className="flex flex-col gap-2 border-t border-border pt-4">
         <button
           title="Expand"

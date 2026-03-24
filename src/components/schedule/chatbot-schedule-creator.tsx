@@ -77,7 +77,7 @@ export function ChatbotScheduleCreator() {
     setInput('');
     setIsLoading(true);
 
-    // Simulate AI processing and task extraction
+    // quick thing here dont mind
     setTimeout(() => {
       const mockTasks = [
         { name: 'Complete project draft', priority: 'high' as const, dueDate: 'Friday' },
@@ -95,7 +95,7 @@ export function ChatbotScheduleCreator() {
       setMessages((prev) => [...prev, aiMessage]);
       setIsLoading(false);
 
-      // Simulate adding tasks with animation
+      // quick thing here dont mind
       setTimeout(() => {
         const taskMessage: TaskMessage = {
           id: (Date.now() + 2).toString(),
@@ -116,7 +116,7 @@ export function ChatbotScheduleCreator() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      {/* Header with task counter */}
+      {/* idk this whole part works lol */}
       {addedTasks > 0 && (
         <div className="bg-green-50 border-b border-green-200 px-6 py-3 flex items-center gap-2 text-green-700">
           <CheckCircle className="h-5 w-5" />
@@ -124,16 +124,16 @@ export function ChatbotScheduleCreator() {
         </div>
       )}
 
-      {/* Messages Area */}
+      {/* idk this whole part works lol */}
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full space-y-8">
-            {/* Floating Orb */}
+            {/* idk this whole part works lol */}
             <div className="w-32 h-32">
               <div className="w-full h-full rounded-full bg-primary opacity-20 blur-3xl animate-pulse" />
             </div>
 
-            {/* Greeting */}
+            {/* idk this whole part works lol */}
             <div className="text-center space-y-3">
               <h1 className="text-4xl font-light text-foreground">
                 Good Afternoon, Jason
@@ -143,7 +143,7 @@ export function ChatbotScheduleCreator() {
               </p>
             </div>
 
-            {/* Input Area */}
+            {/* idk this whole part works lol */}
             <div className="w-full max-w-3xl space-y-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-primary/5 rounded-2xl opacity-40" />
@@ -253,7 +253,7 @@ export function ChatbotScheduleCreator() {
         )}
       </div>
 
-      {/* Examples Section (shown when no messages) */}
+      {/* idk this whole part works lol */}
       {messages.length === 0 && (
         <div className="border-t border-border bg-card p-6 px-8">
           <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-4">
@@ -280,7 +280,7 @@ export function ChatbotScheduleCreator() {
         </div>
       )}
 
-      {/* Input Area (shown after first message) */}
+      {/* idk this whole part works lol */}
       {messages.length > 0 && !isLoading && (
         <div className="border-t border-border bg-card p-6">
           <div className="max-w-4xl mx-auto">

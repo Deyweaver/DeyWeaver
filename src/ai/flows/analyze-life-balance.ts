@@ -1,8 +1,5 @@
 'use server';
-/**
- * @fileOverview Analyzes taskdata to determine life balance across different categories.
- * Instead of time estimates, it shows what types of tasks users have to help balance their life.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';

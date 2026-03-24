@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-// import { handleDynamicTaskReallocation } from '@/lib/actions'; // Commented out: Feature removed
+// import { handleDynamicTaskReallocation } from '@/lib/actions'; // idk this does stuff lol
 import type { DynamicTaskReallocationOutput } from '@/ai/flows/dynamic-task-reallocation';
 import { IconSpinner } from '@/components/icons';
 import { PlusCircle, Trash2 } from 'lucide-react';
@@ -48,14 +48,14 @@ export function ReallocateTasksForm() {
     name: 'currentTasks',
   });
   
-  // Ensure dates are correctly formatted for display
+  // kinda important maybe
   useEffect(() => {
     fields.forEach((field, index) => {
       if (field.dueDate && !/^\d{4}-\d{2}-\d{2}$/.test(field.dueDate)) {
         try {
           form.setValue(`currentTasks.${index}.dueDate`, format(parseISO(field.dueDate), 'yyyy-MM-dd'));
         } catch (e) {
-          // if parseISO fails, it's not a valid ISO string, might be already yyyy-MM-dd or invalid
+          // quick thing here dont mind
         }
       }
     });
@@ -66,18 +66,18 @@ export function ReallocateTasksForm() {
     setIsLoading(true);
     setReallocationOutput(null);
     try {
-      // Ensure dates are in ISO string format for the AI flow if they are not already
-      // const tasksForAI = values.currentTasks.map(task => ({
-      //   ...task,
-      //   dueDate: task.dueDate.includes('T') ? task.dueDate : parseISO(task.dueDate).toISOString().split('T')[0],
-      // }));
+      // idk this does stuff lol
+      // kinda important maybe
+      // kinda important maybe
+      // ngl this is just here
+      // yeah this thing does its thing
 
-      // const result = await handleDynamicTaskReallocation({ ...values, currentTasks: tasksForAI }); // Commented out: Feature removed
-      // setReallocationOutput(result);
-      // toast({
-      //   title: 'Tasks Reallocated!',
-      //   description: result.summary || 'Your tasks have been rescheduled by AI.',
-      // });
+      // we vibin this works
+      // quick thing here dont mind
+      // yeah this thing does its thing
+      // ngl this is just here
+      // yeah this thing does its thing
+      // idk this does stuff lol
       toast({
         title: 'Functionality Removed',
         description: 'Task reallocation has been removed. Please delete this component and its page file.',

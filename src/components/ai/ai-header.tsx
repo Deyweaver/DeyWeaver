@@ -14,7 +14,7 @@ export function AIHeader() {
     <header className="fixed top-0 left-0 right-0 h-16 bg-card/80 dark:bg-background/80 backdrop-blur-md border-b border-border/50 z-50">
       <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
-        {/* Left: Model Selector */}
+        {/* idk this whole part works lol */}
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -39,7 +39,7 @@ export function AIHeader() {
           </DropdownMenu>
         </div>
 
-        {/* Right: Action Buttons */}
+        {/* idk this whole part works lol */}
         <div className="flex items-center gap-3">
           <Button
             variant="ghost"

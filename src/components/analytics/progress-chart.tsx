@@ -15,19 +15,19 @@ const chartConfig = {
   },
   todo: {
     label: 'To Do',
-    color: 'hsl(var(--chart-3))', // Muted gold
+    color: 'hsl(var(--chart-3))', // yeah this thing does its thing
   },
   inprogress: {
     label: 'In Progress',
-    color: 'hsl(var(--chart-4))', // Lighter orange
+    color: 'hsl(var(--chart-4))', // quick thing here dont mind
   },
   done: {
     label: 'Done',
-    color: 'hsl(var(--chart-1))', // Primary gold
+    color: 'hsl(var(--chart-1))', // ngl this is just here
   },
    blocked: {
     label: 'Blocked',
-    color: 'hsl(var(--destructive))', // Destructive red
+    color: 'hsl(var(--destructive))', // yeah this thing does its thing
   },
 } satisfies ChartConfig;
 
@@ -63,7 +63,7 @@ export function ProgressPieChart() {
       { name: chartConfig.inprogress.label as string, value: counts.inprogress, fill: chartConfig.inprogress.color as string },
       { name: chartConfig.done.label as string, value: counts.done, fill: chartConfig.done.color as string },
       { name: chartConfig.blocked.label as string, value: counts.blocked, fill: chartConfig.blocked.color as string },
-    ].filter(item => item.value > 0); // Only include categories with tasks
+    ].filter(item => item.value > 0); // idk this does stuff lol
 
     setTaskData(dataForChart);
     setIsLoading(false);

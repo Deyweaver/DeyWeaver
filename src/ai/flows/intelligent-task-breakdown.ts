@@ -1,12 +1,6 @@
 // 'use server';
 
-/**
- * @fileOverview Breaks down a task into smaller sub-tasks and allocates time slots.
- *
- * - intelligentTaskBreakdown - A function that handles the task breakdown process.
- * - IntelligentTaskBreakdownInput - The input type for the intelligentTaskBreakdown function.
- * - IntelligentTaskBreakdownOutput - The return type for the intelligentTaskBreakdown function.
- */
+/* idk this whole part works lol */
 
 'use server';
 

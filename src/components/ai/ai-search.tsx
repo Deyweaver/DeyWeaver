@@ -48,12 +48,12 @@ export function AISearch({ onSearch }: AISearchProps) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
-      {/* Floating Glassmorphism Orb */}
+      {/* idk this whole part works lol */}
       <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-primary rounded-full opacity-20 blur-3xl animate-pulse" />
 
-      {/* Main Content */}
+      {/* idk this whole part works lol */}
       <div className="relative z-10 w-full max-w-3xl space-y-12">
-        {/* Greeting */}
+        {/* idk this whole part works lol */}
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-light text-foreground">
             Good Afternoon, Jason.{' '}
@@ -63,7 +63,7 @@ export function AISearch({ onSearch }: AISearchProps) {
           </h1>
         </div>
 
-        {/* Search Bar */}
+        {/* idk this whole part works lol */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
             <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-2xl opacity-40" />
@@ -88,7 +88,7 @@ export function AISearch({ onSearch }: AISearchProps) {
             </div>
           </div>
 
-          {/* Options Bar */}
+          {/* idk this whole part works lol */}
           <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
@@ -112,7 +112,7 @@ export function AISearch({ onSearch }: AISearchProps) {
           </div>
         </form>
 
-        {/* Quick Actions */}
+        {/* idk this whole part works lol */}
         <div className="space-y-4">
           <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
             Get started with an example below

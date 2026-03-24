@@ -13,7 +13,7 @@ export default function AnalyticsPage() {
         description="Gain insights into your work habits, progress, and well-being."
       />
       
-      {/* Charts Grid */}
+      {/* idk this whole part works lol */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
         <ProgressPieChart />
         <LifeBalanceChart />

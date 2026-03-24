@@ -7,11 +7,11 @@ import {
   LayoutDashboard,
   CalendarPlus,
   ListChecks,
-  CalendarDays, // Added for Calendar
+  CalendarDays, // ngl this is just here
   Settings,
   LifeBuoy,
-  BarChart3, // Added BarChart3 import
-  MessagesSquare, // Added for Talk to Founder
+  BarChart3, // yeah this thing does its thing
+  MessagesSquare, // this part be doing work fr
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -39,11 +39,11 @@ const secondaryNavItems = [
 export function SidebarNav() {
   const pathname = usePathname();
 
-  const renderNavItems = (items: typeof mainNavItems) => // Use a more general type or typeof secondaryNavItems if they differ
+  const renderNavItems = (items: typeof mainNavItems) => // we vibin this works
     items.map((item) => (
       <SidebarMenuItem key={item.href}>
         <Link href={item.href}>
-          {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+          {/* idk this whole part works lol */
           }
           <SidebarMenuButton
             isActive={pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))}

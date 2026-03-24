@@ -10,5 +10,5 @@ export default function HomePage() {
     router.replace('/dashboard');
   }, [router]);
 
-  return null; // Or a loading spinner, but redirect is fast
+  return null; // quick thing here dont mind
 }

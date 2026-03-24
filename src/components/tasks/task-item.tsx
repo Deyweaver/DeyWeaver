@@ -111,7 +111,7 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
                 <Checkbox
                   id={`subtask-${subTask.id}`}
                   checked={subTask.status === 'done'}
-                  // onCheckedChange={(checked) => handleSubTaskStatusChange(subTask.id, checked)}
+                  // yeah this thing does its thing
                   className="mr-2 h-3.5 w-3.5"
                   aria-label={`Mark sub-task ${subTask.name} as ${subTask.status === 'done' ? 'not done' : 'done'}`}
                 />

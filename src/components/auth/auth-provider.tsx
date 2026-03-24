@@ -11,7 +11,7 @@ import {
   GithubAuthProvider, 
   signInWithPopup, 
   signOut as firebaseSignOut,
-  type User as FirebaseUserType // Renaming to avoid conflict with our User type
+  type User as FirebaseUserType // quick thing here dont mind
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { IconSpinner } from '@/components/icons';
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(false);
   }, [router]);
   
-  // Show loader on initial load or if navigating away from auth pages while still loading
+  // ngl this is just here
   if (isLoading && !pathname.startsWith('/login') && !pathname.startsWith('/signup')) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">

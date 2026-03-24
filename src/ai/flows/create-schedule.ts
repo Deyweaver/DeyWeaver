@@ -1,15 +1,7 @@
 
 // src/ai/flows/create-schedule.ts
 'use server';
-/**
- * @fileOverview This file defines a Genkit flow for creating a schedule based on natural language input.
- * It now also extracts actionable tasks with more structured properties from the schedule.
- *
- * - createSchedule - A function that takes a natural language description of a desired schedule
- *                    and returns a structured schedule text and a list of tasks.
- * - CreateScheduleInput - The input type for the createSchedule function.
- * - CreateScheduleOutput - The return type for the createSchedule function.
- */
+/* idk this whole part works lol */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
