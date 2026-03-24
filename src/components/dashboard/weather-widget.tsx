@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { CloudSun, MapPin, Wind } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { IconSpinner } from '@/components/icons';
-import { handleFetchWeather, type WeatherResult } from '@/lib/actions';
+import { handleFetchWeather, handleFetchWeatherByLocationName, type WeatherResult } from '@/lib/actions';
+import { getWeatherLocationPreference } from '@/lib/user-preferences';
 
 export function WeatherWidget() {
   const [data, setData] = useState<WeatherResult | null>(null);
@@ -12,6 +13,22 @@ export function WeatherWidget() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const savedLocation = getWeatherLocationPreference();
+
+    if (savedLocation) {
+      async function loadSavedLocationWeather() {
+        const result = await handleFetchWeatherByLocationName({ location: savedLocation });
+        setData(result);
+        if (!result.ok && result.error) {
+          setStatusMessage(result.error);
+        }
+        setIsLoading(false);
+      }
+
+      loadSavedLocationWeather();
+      return;
+    }
+
     if (!navigator.geolocation) {
       setStatusMessage('Geolocation is not supported in this browser.');
       setIsLoading(false);

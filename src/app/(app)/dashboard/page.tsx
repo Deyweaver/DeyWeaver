@@ -7,6 +7,7 @@ import { WeatherWidget } from '@/components/dashboard/weather-widget';
 import { QuoteWidget } from '@/components/dashboard/quote-widget';
 import { NewsWidget } from '@/components/dashboard/news-widget';
 import { QuickLinksWidget } from '@/components/dashboard/quick-links-widget';
+import { DirectSearchWidget } from '@/components/dashboard/direct-search-widget';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -21,6 +22,7 @@ export default function DashboardPage() {
       />
 
       <div className="grid gap-6 md:grid-cols-2">
+        <DirectSearchWidget />
         <WeatherWidget />
         <QuoteWidget />
         <NewsWidget />

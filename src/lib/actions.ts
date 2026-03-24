@@ -141,6 +141,15 @@ type OpenMeteoResponse = {
   };
 };
 
+type OpenMeteoGeocodingResponse = {
+  results?: Array<{
+    name?: string;
+    country?: string;
+    latitude?: number;
+    longitude?: number;
+  }>;
+};
+
 type ZenQuotesResponse = Array<{
   q?: string;
   a?: string;
@@ -237,6 +246,72 @@ export async function handleFetchWeather(input: { latitude: number; longitude: n
   } catch (error) {
     console.error('Error fetching weather:', error);
     return fallback;
+  }
+}
+
+export async function handleFetchWeatherByLocationName(input: { location: string }): Promise<WeatherResult> {
+  const normalizedLocation = input.location.trim();
+  if (normalizedLocation.length === 0) {
+    return {
+      ok: false,
+      temperatureC: 0,
+      condition: 'Unavailable',
+      windKmh: 0,
+      locationLabel: 'Custom location',
+      error: 'Please provide a location name.',
+    };
+  }
+
+  try {
+    const geoParams = new URLSearchParams({
+      name: normalizedLocation,
+      count: '1',
+      language: 'en',
+      format: 'json',
+    });
+
+    const geocoding = await fetchJsonWithTimeout<OpenMeteoGeocodingResponse>(
+      `https://geocoding-api.open-meteo.com/v1/search?${geoParams.toString()}`
+    );
+
+    const first = geocoding.results?.[0];
+    if (!first || typeof first.latitude !== 'number' || typeof first.longitude !== 'number') {
+      return {
+        ok: false,
+        temperatureC: 0,
+        condition: 'Unavailable',
+        windKmh: 0,
+        locationLabel: normalizedLocation,
+        error: 'Could not find that location.',
+      };
+    }
+
+    const weather = await handleFetchWeather({
+      latitude: first.latitude,
+      longitude: first.longitude,
+    });
+
+    if (!weather.ok) {
+      return {
+        ...weather,
+        locationLabel: normalizedLocation,
+      };
+    }
+
+    return {
+      ...weather,
+      locationLabel: first.country ? `${first.name}, ${first.country}` : first.name || normalizedLocation,
+    };
+  } catch (error) {
+    console.error('Error fetching weather by location name:', error);
+    return {
+      ok: false,
+      temperatureC: 0,
+      condition: 'Unavailable',
+      windKmh: 0,
+      locationLabel: normalizedLocation,
+      error: 'Unable to fetch weather for that location right now.',
+    };
   }
 }
 
