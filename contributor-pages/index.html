@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DeyWeaver Contributor Algorithms Guide</title>
+  <meta name="description" content="Contributor-focused deep documentation for all DeyWeaver algorithms, with infographic prompt placeholders." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="site">
+    <header class="hero">
+      <h1>DeyWeaver Contributor Docs</h1>
+      <p>
+        Simple docs for contributors. Each chapter explains one algorithm, where to edit it,
+        and includes a placeholder prompt for a future infographic.
+      </p>
+    </header>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Table of contents">
+        <h2>On This Page</h2>
+        <ol>
+          <li><a href="#architecture">System Architecture</a></li>
+          <li><a href="#create-schedule">Create Schedule</a></li>
+          <li><a href="#analyze-time-usage">Analyze Time Usage</a></li>
+          <li><a href="#calculate-efficiency">Calculate Efficiency Score</a></li>
+          <li><a href="#predict-burnout">Predict Burnout</a></li>
+          <li><a href="#analyze-life-balance">Analyze Life Balance</a></li>
+          <li><a href="#dynamic-reallocation">Dynamic Task Reallocation</a></li>
+          <li><a href="#intelligent-breakdown">Intelligent Task Breakdown</a></li>
+          <li><a href="#meeting-aware">Speech/Meeting-Aware Scheduling</a></li>
+          <li><a href="#progress-chart">Progress Chart Algorithm</a></li>
+          <li><a href="#contrib-map">Contributor Edit Map</a></li>
+        </ol>
+      </nav>
+
+      <main class="content">
+        <article class="card" id="architecture">
+          <h2>System Architecture</h2>
+          <div class="architecture-grid">
+            <div class="architecture-text">
+              <p>
+                Most analytics features follow one chain: UI component -> server action wrapper -> AI flow -> validated output schema -> chart or card rendering.
+                The wrapper layer in src/lib/actions.ts centralizes fallback behavior and keeps UI components simple.
+              </p>
+              <h3>Core Path</h3>
+              <ol>
+                <li>User creates/updates tasks in local storage-driven UI.</li>
+                <li>Analytics component prepares compact task payloads.</li>
+                <li>Component calls a handle* wrapper in src/lib/actions.ts.</li>
+                <li>Wrapper calls a Genkit flow from src/ai/flows/*.ts.</li>
+                <li>Flow runs prompt + schema validation and returns structured output.</li>
+                <li>Wrapper returns flow output or fallback output.</li>
+                <li>Component renders chart/cards from the returned structure.</li>
+              </ol>
+            </div>
+            <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+              <div class="zoom-image-wrap">
+                <img class="zoomable" src="1.png" alt="DeyWeaver analytics architecture infographic" loading="lazy" />
+                <span class="zoom-lens" aria-hidden="true"></span>
+              </div>
+              <aside class="zoom-preview" aria-hidden="true">
+                <div class="zoom-preview-inner"></div>
+              </aside>
+            </figure>
+          </div>
+        </article>
+
+        <article class="card" id="create-schedule">
+          <h2>1) Create Schedule</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/create-schedule.ts</p>
+          <p><strong>Purpose:</strong> Converts natural language planning intent into structured schedule text and a task list with actionable entries.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "scheduleDescription": "string"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "scheduleText": "string",
+  "tasks": [
+    {
+      "name": "string",
+      "description": "string?",
+      "category": "string?",
+      "priority": "low | medium | high?",
+      "dueDate": "YYYY-MM-DD?"
+    }
+  ]
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Reads user request as plain language schedule intent.</li>
+            <li>Generates a segmented textual schedule with work and rest blocks.</li>
+            <li>Extracts distinct actionable tasks from the schedule.</li>
+            <li>For complex intents, breaks one large goal into multiple concrete tasks.</li>
+            <li>For simple intents, returns one task or an empty task list if extraction is not meaningful.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>The flow uses a non-null assertion on output. Wrapper-level handling is important.</li>
+            <li>In src/lib/actions.ts, handleCreateSchedule normalizes missing tasks to an empty array.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>Wrapper: src/lib/actions.ts -> handleCreateSchedule</p>
+
+          <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+            <div class="zoom-image-wrap">
+              <img class="zoomable" src="Schedule Generation Flowchart.png" alt="Schedule Generation Flowchart infographic" loading="lazy" />
+              <span class="zoom-lens" aria-hidden="true"></span>
+            </div>
+            <aside class="zoom-preview" aria-hidden="true">
+              <div class="zoom-preview-inner"></div>
+            </aside>
+          </figure>
+        </article>
+
+        <article class="card" id="analyze-time-usage">
+          <h2>2) Analyze Time Usage</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/analyze-time-usage.ts</p>
+          <p><strong>Purpose:</strong> Estimates weekly hour distribution (Mon-Sun) across Study, Work, Personal, Chill, and Sleep.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "tasks": [{ "name": "string", "description": "string?", "dueDate": "string?", "priority": "low|medium|high?", "status": "todo|inprogress|done|blocked", "category": "string?" }],
+  "currentDate": "YYYY-MM-DD"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "weeklyUsage": [
+    { "day": "Mon|Tue|Wed|Thu|Fri|Sat|Sun", "Study": 0, "Work": 0, "Personal": 0, "Chill": 0, "Sleep": 0 }
+  ],
+  "analysisSummary": "string?"
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Identifies target week from currentDate (Monday start).</li>
+            <li>Maps tasks into day-level estimates using category and due-date context.</li>
+            <li>Returns all seven days in strict order.</li>
+            <li>Adds assumptions for Chill and Sleep when not explicitly inferable from tasks.</li>
+            <li>Completes missing days with default values if model returns partial data.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>If model output is empty, flow returns a full-week fallback with default Chill/Sleep.</li>
+            <li>Wrapper handleAnalyzeTimeUsage adds another safe fallback if flow call fails.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>UI consumer: src/components/analytics/time-usage-chart.tsx</p>
+          <p>Wrapper: src/lib/actions.ts -> handleAnalyzeTimeUsage</p>
+
+          <div class="prompt-box">
+            <h4>Infographic Prompt Placeholder: Weekly Distribution Diagram</h4>
+            <p>
+              Create a clean weekly stacked visualization concept (Mon to Sun). Each day bar must contain Study, Work, Personal, Chill, Sleep layers with small labels.
+              Add a side annotation titled "Assumptions" for Chill/Sleep defaults. Keep style flat and minimalist, no gradients, white background, 16:10.
+            </p>
+          </div>
+        </article>
+
+        <article class="card" id="calculate-efficiency">
+          <h2>3) Calculate Efficiency Score</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/calculate-efficiency-score.ts</p>
+          <p><strong>Purpose:</strong> Produces a 0-100 efficiency score with a qualitative message and optional feedback.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "tasks": [{ "name": "string", "dueDate": "string?", "priority": "low|medium|high?", "status": "todo|inprogress|done|blocked", "category": "string?" }],
+  "currentDate": "YYYY-MM-DD"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "score": 0,
+  "message": "string",
+  "positiveFeedback": "string?",
+  "improvementSuggestion": "string?"
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Evaluates completion ratio across task set.</li>
+            <li>Penalizes overdue tasks and blocked tasks.</li>
+            <li>Treats overdue high-priority work as a stronger penalty.</li>
+            <li>Generates contextual score narrative and optional guidance text.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>If no tasks exist, returns score 0 with a no-task message.</li>
+            <li>If flow output is unavailable, returns score 50 fallback in flow.</li>
+            <li>Wrapper may return score 0 if runtime error occurs.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>UI consumer: src/components/analytics/efficiency-score.tsx</p>
+          <p>Wrapper: src/lib/actions.ts -> handleCalculateEfficiencyScore</p>
+
+          <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+            <div class="zoom-image-wrap">
+              <img class="zoomable" src="Efficiency Gauge.png" alt="Efficiency Gauge infographic" loading="lazy" />
+              <span class="zoom-lens" aria-hidden="true"></span>
+            </div>
+            <aside class="zoom-preview" aria-hidden="true">
+              <div class="zoom-preview-inner"></div>
+            </aside>
+          </figure>
+        </article>
+
+        <article class="card" id="predict-burnout">
+          <h2>4) Predict Burnout</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/predict-burnout.ts</p>
+          <p><strong>Purpose:</strong> Predicts burnout risk as low/medium/high with a 0-100 progress value and explanatory factors.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "tasks": [{ "name": "string", "dueDate": "string?", "priority": "low|medium|high?", "status": "todo|inprogress|done|blocked", "category": "string?" }],
+  "currentDate": "YYYY-MM-DD"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "riskLevel": "low | medium | high",
+  "progressValue": 0,
+  "message": "string",
+  "contributingFactors": ["string?"]
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Evaluates active task load (todo + inprogress).</li>
+            <li>Checks overdue quantity and deadline density.</li>
+            <li>Weights high-priority pressure and blocked-state friction.</li>
+            <li>Combines signals into risk level and mapped progress range.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>No tasks: low risk and low progress value by default.</li>
+            <li>Missing model output: medium risk default with generic message.</li>
+            <li>Wrapper-level catch also returns medium risk safety output.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>UI consumer: src/components/analytics/burnout-predictor.tsx</p>
+          <p>Wrapper: src/lib/actions.ts -> handlePredictBurnout</p>
+
+          <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+            <div class="zoom-image-wrap">
+              <img class="zoomable" src="burnout risk timeline.png" alt="Burnout Risk Timeline infographic" loading="lazy" />
+              <span class="zoom-lens" aria-hidden="true"></span>
+            </div>
+            <aside class="zoom-preview" aria-hidden="true">
+              <div class="zoom-preview-inner"></div>
+            </aside>
+          </figure>
+        </article>
+
+        <article class="card" id="analyze-life-balance">
+          <h2>5) Analyze Life Balance</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/analyze-life-balance.ts</p>
+          <p><strong>Purpose:</strong> Categorizes tasks across life areas and identifies balance gaps.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "tasks": [{ "name": "string", "description": "string?", "dueDate": "string?", "priority": "low|medium|high?", "status": "todo|inprogress|done|blocked", "category": "string?" }],
+  "timeframe": "string?"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "categories": [{ "name": "string", "count": 0, "percentage": 0, "description": "string", "color": "string?", "tasks": ["string"] }],
+  "totalTasks": 0,
+  "balanceInsight": "string",
+  "recommendation": "string"
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Classifies tasks into life categories (work, health, relationships, growth, fun, finance, home).</li>
+            <li>Counts tasks per category and computes percentages.</li>
+            <li>Adds category descriptions and sample task names.</li>
+            <li>Generates an insight about over/under concentration and a recommendation.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>Flow can return an empty category set when analysis fails.</li>
+            <li>Wrapper handleAnalyzeLifeBalance triggers buildLifeBalanceFallback when needed.</li>
+            <li>Fallback uses inferLifeCategory keyword matching from src/lib/actions.ts.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>UI consumer: src/components/analytics/life-balance-chart.tsx</p>
+          <p>Wrapper and fallback logic: src/lib/actions.ts -> handleAnalyzeLifeBalance, inferLifeCategory, buildLifeBalanceFallback</p>
+
+          <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+            <div class="zoom-image-wrap">
+              <img class="zoomable" src="life cetogry classification process.png" alt="Life Category Classification infographic" loading="lazy" />
+              <span class="zoom-lens" aria-hidden="true"></span>
+            </div>
+            <aside class="zoom-preview" aria-hidden="true">
+              <div class="zoom-preview-inner"></div>
+            </aside>
+          </figure>
+        </article>
+
+        <article class="card" id="dynamic-reallocation">
+          <h2>6) Dynamic Task Reallocation</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/dynamic-task-reallocation.ts</p>
+          <p><strong>Purpose:</strong> Reschedules tasks to new dates after disruptions such as illness, conflict, or missed time blocks.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "reason": "string",
+  "currentTasks": [{ "name": "string", "dueDate": "YYYY-MM-DD", "duration": 0 }]
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "rescheduledTasks": [{ "name": "string", "newDueDate": "YYYY-MM-DD" }],
+  "summary": "string"
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Reads disruption reason to capture scheduling constraints.</li>
+            <li>Reviews due dates and durations for current task set.</li>
+            <li>Moves tasks to future slots while balancing load.</li>
+            <li>Returns concise summary of what changed and why.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>Flow uses non-null assertion. If model output fails, wrapper protection should be added where integrated.</li>
+            <li>Dates are expected in YYYY-MM-DD and should be normalized before calling flow.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>Primary logic file: src/ai/flows/dynamic-task-reallocation.ts</p>
+
+          <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+            <div class="zoom-image-wrap">
+              <img class="zoomable" src="dynammic task reallocation.png" alt="Before/After Reallocation Calendar infographic" loading="lazy" />
+              <span class="zoom-lens" aria-hidden="true"></span>
+            </div>
+            <aside class="zoom-preview" aria-hidden="true">
+              <div class="zoom-preview-inner"></div>
+            </aside>
+          </figure>
+        </article>
+
+        <article class="card" id="intelligent-breakdown">
+          <h2>7) Intelligent Task Breakdown</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/intelligent-task-breakdown.ts</p>
+          <p><strong>Purpose:</strong> Splits one complex task into smaller sub-tasks with estimated durations.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "task": "string"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "subTasks": [{ "name": "string", "estimatedTime": "string" }]
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Reads large task statement, including implicit deadline pressure.</li>
+            <li>Decomposes into logical sequential units.</li>
+            <li>Assigns approximate effort per sub-task.</li>
+            <li>Returns simple checklist-friendly output.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>No explicit fallback in flow file; integration should guard against null output.</li>
+            <li>Quality depends on input specificity. Vague input yields generic sub-tasks.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>Primary logic file: src/ai/flows/intelligent-task-breakdown.ts</p>
+
+          <figure class="doc-image doc-image-large doc-image-clean zoom-interactive" data-zoom-scale="2.4">
+            <div class="zoom-image-wrap">
+              <img class="zoomable" src="integent task breakdown.png" alt="Task Decomposition Tree infographic" loading="lazy" />
+              <span class="zoom-lens" aria-hidden="true"></span>
+            </div>
+            <aside class="zoom-preview" aria-hidden="true">
+              <div class="zoom-preview-inner"></div>
+            </aside>
+          </figure>
+        </article>
+
+        <article class="card" id="meeting-aware">
+          <h2>8) Speech/Meeting-Aware Scheduling</h2>
+          <p><strong>Primary file:</strong> src/ai/flows/speech-meeting-aware.ts</p>
+          <p><strong>Purpose:</strong> Adjusts user schedule around an event and returns reminders plus a speaker checklist.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>{
+  "calendarEvent": "string",
+  "currentTasks": "string"
+}</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>{
+  "adjustedTasks": "string",
+  "reminders": "string",
+  "speakerChecklist": "string"
+}</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Parses event context and current task sequence from string inputs.</li>
+            <li>Compresses and reallocates tasks around event timing.</li>
+            <li>Calls built-in generateChecklist tool for event prep checklist.</li>
+            <li>Returns adjusted schedule text plus reminder list and checklist text.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>Tool-assisted flow is powerful but string-in/string-out format requires careful prompt discipline.</li>
+            <li>No explicit fallback object in flow file; callers should add wrapper-level safety for production robustness.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>Primary logic file: src/ai/flows/speech-meeting-aware.ts</p>
+
+          <div class="prompt-box">
+            <h4>Infographic Prompt Placeholder: Timeline Compression</h4>
+            <p>
+              Produce a two-lane timeline: original day plan (top) and adjusted plan (bottom). Place calendar event as fixed anchor block.
+              Show compressed prep window and moved tasks with curved arrows. Add side card listing reminders and speaker checklist bullets.
+              Minimal modern line-art style, 16:9.
+            </p>
+          </div>
+        </article>
+
+        <article class="card" id="progress-chart">
+          <h2>9) Progress Chart Algorithm (Client-Side, Non-AI)</h2>
+          <p><strong>Primary file:</strong> src/components/analytics/progress-chart.tsx</p>
+          <p><strong>Purpose:</strong> Computes task status distribution and renders a donut chart from local task storage.</p>
+
+          <h3>Input Contract</h3>
+          <div class="schema"><pre>Input source: getTasksFromLocalStorage()
+Task statuses counted: todo | inprogress | done | blocked</pre></div>
+
+          <h3>Output Contract</h3>
+          <div class="schema"><pre>Chart data array:
+[
+  { name: "To Do", value: number, fill: color },
+  { name: "In Progress", value: number, fill: color },
+  { name: "Done", value: number, fill: color },
+  { name: "Blocked", value: number, fill: color }
+]
+(only non-zero buckets are rendered)</pre></div>
+
+          <h3>How It Works</h3>
+          <ol>
+            <li>Loads tasks from local storage in browser context.</li>
+            <li>Initializes counts for each status bucket to zero.</li>
+            <li>Single pass over tasks increments matching status count.</li>
+            <li>Builds chart data objects from counts and removes empty buckets.</li>
+            <li>Renders donut chart and percentage labels from this dataset.</li>
+          </ol>
+
+          <h3>Fallback and Edge Behavior</h3>
+          <ul>
+            <li>If no tasks exist, UI displays an onboarding hint instead of chart.</li>
+            <li>If chart data is empty but tasks exist, UI displays a no-status message.</li>
+          </ul>
+
+          <h3>Where It Is Used</h3>
+          <p>Primary logic and render: src/components/analytics/progress-chart.tsx</p>
+
+          <div class="prompt-box">
+            <h4>Infographic Prompt Placeholder: Status Counting Pipeline</h4>
+            <p>
+              Build a simple algorithm diagram showing: Task Array -> Initialize Counters -> Loop and Increment by Status -> Filter Zero Buckets -> Donut Chart.
+              Include tiny pseudo-code snippets in side labels. Use monochrome blocks with a single accent color for final chart node, 4:3.
+            </p>
+          </div>
+        </article>
+
+        <article class="card" id="contrib-map">
+          <h2>Contributor Edit Map</h2>
+          <p>
+            Use this quick map to know where to edit behavior. This section is intentionally direct for faster onboarding.
+          </p>
+          <div class="file-list">
+            <div>src/ai/genkit.ts -> model and plugin configuration</div>
+            <div>src/ai/flows/create-schedule.ts -> schedule generation and task extraction</div>
+            <div>src/ai/flows/analyze-time-usage.ts -> week-level hour estimation</div>
+            <div>src/ai/flows/calculate-efficiency-score.ts -> score logic prompt contract</div>
+            <div>src/ai/flows/predict-burnout.ts -> risk scoring prompt contract</div>
+            <div>src/ai/flows/analyze-life-balance.ts -> category distribution analysis</div>
+            <div>src/ai/flows/dynamic-task-reallocation.ts -> disruption-aware rescheduling</div>
+            <div>src/ai/flows/intelligent-task-breakdown.ts -> decomposition output</div>
+            <div>src/ai/flows/speech-meeting-aware.ts -> event-aware adjustments + checklist tool</div>
+            <div>src/lib/actions.ts -> wrappers, fallback behavior, and life-balance keyword fallback</div>
+            <div>src/components/analytics/*.tsx -> chart consumption and UI mapping</div>
+          </div>
+          <div class="prompt-box">
+            <h4>Infographic Prompt Placeholder: Contributor Workflow</h4>
+            <p>
+              Create a contributor journey infographic with 6 boxes: Pick Feature -> Find Flow File -> Edit Schema/Prompt -> Update Wrapper Fallback -> Validate UI Component -> Test with Sample Tasks.
+              Include git branch and PR icons as small side markers. Keep design minimal, clear arrows, 16:9.
+            </p>
+          </div>
+        </article>
+      </main>
+    </div>
+
+    <footer>
+      Built as a standalone contributor docs page for GitHub Pages deployment.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const zoomCards = document.querySelectorAll('.zoom-interactive');
+      zoomCards.forEach((card) => {
+        const imageWrap = card.querySelector('.zoom-image-wrap');
+        const img = card.querySelector('.zoomable');
+        const lens = card.querySelector('.zoom-lens');
+        const preview = card.querySelector('.zoom-preview');
+        const previewInner = card.querySelector('.zoom-preview-inner');
+        if (!imageWrap || !img || !lens || !preview || !previewInner) return;
+
+        const zoomScale = Number(card.getAttribute('data-zoom-scale') || 2.2);
+
+        const clamp = function (value, min, max) {
+          return Math.max(min, Math.min(value, max));
+        };
+
+        const intersects = function (a, b) {
+          return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+        };
+
+        const placePreview = function (event) {
+          const imageRect = imageWrap.getBoundingClientRect();
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const margin = 10;
+          const gap = 14;
+          const previewW = preview.offsetWidth || 360;
+          const previewH = preview.offsetHeight || 360;
+
+          const toc = document.querySelector('.toc');
+          const tocRect = toc ? toc.getBoundingClientRect() : null;
+          const imageBlock = {
+            left: imageRect.left - 2,
+            top: imageRect.top - 2,
+            right: imageRect.right + 2,
+            bottom: imageRect.bottom + 2,
+          };
+
+          const cands = [
+            { left: event.clientX + gap, top: event.clientY - previewH / 2 },
+            { left: event.clientX - previewW - gap, top: event.clientY - previewH / 2 },
+            { left: event.clientX - previewW / 2, top: event.clientY + gap },
+            { left: event.clientX - previewW / 2, top: event.clientY - previewH - gap },
+            { left: imageRect.right + gap, top: imageRect.top },
+            { left: imageRect.left - previewW - gap, top: imageRect.top },
+          ];
+
+          for (const cand of cands) {
+            const left = clamp(cand.left, margin, vw - previewW - margin);
+            const top = clamp(cand.top, margin, vh - previewH - margin);
+            const box = { left, top, right: left + previewW, bottom: top + previewH };
+
+            if (intersects(box, imageBlock)) continue;
+            if (tocRect && intersects(box, tocRect)) continue;
+
+            preview.style.left = left + 'px';
+            preview.style.top = top + 'px';
+            return true;
+          }
+
+          return false;
+        };
+
+        const hideZoom = function () {
+          card.classList.remove('is-zooming');
+        };
+
+        const updateZoom = function (event) {
+          const rect = img.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+
+          let x = event.clientX - rect.left;
+          let y = event.clientY - rect.top;
+
+          x = clamp(x, 0, rect.width);
+          y = clamp(y, 0, rect.height);
+
+          const previewW = preview.offsetWidth || 360;
+          const previewH = preview.offsetHeight || 360;
+
+          // Lens size is derived from preview size and zoom factor so both areas match.
+          const lensW = clamp(previewW / zoomScale, 90, rect.width);
+          const lensH = clamp(previewH / zoomScale, 90, rect.height);
+
+          const lensLeft = clamp(x - lensW / 2, 0, rect.width - lensW);
+          const lensTop = clamp(y - lensH / 2, 0, rect.height - lensH);
+
+          lens.style.width = lensW + 'px';
+          lens.style.height = lensH + 'px';
+          lens.style.left = lensLeft + 'px';
+          lens.style.top = lensTop + 'px';
+
+          const bgW = rect.width * zoomScale;
+          const bgH = rect.height * zoomScale;
+          const targetX = x * zoomScale;
+          const targetY = y * zoomScale;
+
+          let bgPosX = -(targetX - previewW / 2);
+          let bgPosY = -(targetY - previewH / 2);
+
+          const minBgX = previewW - bgW;
+          const minBgY = previewH - bgH;
+          bgPosX = clamp(bgPosX, minBgX, 0);
+          bgPosY = clamp(bgPosY, minBgY, 0);
+
+          previewInner.style.backgroundImage = 'url("' + img.currentSrc + '")';
+          previewInner.style.backgroundSize = bgW + 'px ' + bgH + 'px';
+          previewInner.style.backgroundPosition = bgPosX + 'px ' + bgPosY + 'px';
+
+          const positioned = placePreview(event);
+          if (!positioned) {
+            hideZoom();
+            return;
+          }
+
+          card.classList.add('is-zooming');
+        };
+
+        imageWrap.addEventListener('mouseenter', updateZoom);
+        imageWrap.addEventListener('mousemove', updateZoom);
+        imageWrap.addEventListener('mouseleave', hideZoom);
+        imageWrap.addEventListener('touchstart', hideZoom, { passive: true });
+      });
+    })();
+  </script>
+</body>
+</html>
