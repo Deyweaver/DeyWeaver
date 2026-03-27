@@ -8,7 +8,7 @@
   --accent-soft: #e7f5f3;
   --toc-width: clamp(220px, 24vw, 290px);
   --layout-gap: 18px;
-  --toc-top: 180px;
+  --toc-top: 240px;
 }
 
 * {
@@ -59,16 +59,18 @@ a {
 }
 
 .layout {
-  display: block;
+  display: grid;
+  grid-template-columns: var(--toc-width) minmax(0, 1fr);
+  gap: var(--layout-gap);
   margin-top: 18px;
+  align-items: start;
 }
 
 .toc {
-  position: fixed;
-  top: var(--toc-top);
-  left: calc((100vw - min(1200px, 100vw)) / 2 + 24px);
+  position: sticky;
+  top: 20px;
   width: var(--toc-width);
-  max-height: calc(100vh - var(--toc-top) - 12px);
+  max-height: calc(100vh - 32px);
   overflow: auto;
   border: 1px solid var(--line);
   background: var(--panel);
@@ -99,7 +101,7 @@ a {
   display: grid;
   gap: 14px;
   min-width: 0;
-  margin-left: calc(var(--toc-width) + var(--layout-gap));
+  margin-left: 0;
 }
 
 .card {
@@ -236,6 +238,7 @@ footer {
 
   .layout {
     margin-top: 12px;
+    grid-template-columns: 1fr;
   }
 
   .toc {
@@ -243,7 +246,6 @@ footer {
     width: 100%;
     max-height: none;
     overflow: visible;
-    left: auto;
   }
 
   .content {
