@@ -8,7 +8,7 @@
   --accent-soft: #e7f5f3;
   --toc-width: clamp(220px, 24vw, 290px);
   --layout-gap: 18px;
-  --toc-top: 96px;
+  --toc-top: 180px;
 }
 
 * {
