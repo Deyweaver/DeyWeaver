@@ -47,6 +47,40 @@ a {
   min-width: 0;
 }
 
+.hero-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.hero-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .hero h1 {
   margin: 0 0 8px 0;
   font-size: clamp(1.6rem, 3vw, 2.2rem);

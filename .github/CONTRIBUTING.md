@@ -1,12 +1,12 @@
 # Contributing to DeyWeaver
 
-## 🎉 Welcome
+## Welcome
 
 Thank you for your interest in contributing to DeyWeaver! We're excited to have you join our community of developers working on this AI-integrated productivity tool. Your contributions help make DeyWeaver better for everyone.
 
 DeyWeaver is an open-source productivity application that helps users organize their day, prioritize tasks, and optimize time management through intelligent AI-powered scheduling.
 
-## 📋 Code of Conduct
+## Code of Conduct
 
 We are committed to providing a welcoming and inspiring community for all. Please be respectful, professional, and considerate in all interactions. We expect all contributors to foster an inclusive environment where everyone feels safe to participate.
 
@@ -17,7 +17,7 @@ A formal Code of Conduct will be added in the future. Until then, we expect all 
 - Focus on what is best for the community
 - Show empathy towards other community members
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -62,7 +62,7 @@ Before contributing to DeyWeaver, ensure you have the following installed:
    npm run typecheck
    ```
 
-## 📁 Project Structure
+## Project Structure
 
 DeyWeaver follows a standard Next.js 15 App Router structure:
 
@@ -85,7 +85,7 @@ DeyWeaver follows a standard Next.js 15 App Router structure:
 └── tsconfig.json        # TypeScript configuration
 ```
 
-## 🌿 Branching Strategy
+## Branching Strategy
 
 ### Branch Naming Convention
 
@@ -111,7 +111,7 @@ git checkout your-feature-branch
 git rebase main
 ```
 
-## 🐛 Issue Reporting
+## Issue Reporting
 
 ### Before Creating an Issue
 
@@ -140,7 +140,7 @@ Use our [Bug Report Template](.github/ISSUE_TEMPLATE/bug_report.md) for consiste
 <!-- TODO: Define label scheme - maintainers should update this section -->
 Common labels include: `bug`, `enhancement`, `documentation`, `good first issue`, `help wanted`, `priority-high`, `priority-medium`, `priority-low`
 
-## 💡 Feature Requests
+## Feature Requests
 
 We welcome feature requests! However, for significant changes:
 
@@ -151,7 +151,7 @@ We welcome feature requests! However, for significant changes:
 
 Use our [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md).
 
-## 🛠️ Development Workflow
+## Development Workflow
 
 ### Step-by-Step Process
 
@@ -183,7 +183,7 @@ Use our [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md).
 
 8. **Open a Pull Request** against the main branch
 
-## 🎨 Code Style & Quality
+## Code Style & Quality
 
 ### Tech Stack Standards
 
@@ -270,13 +270,13 @@ chore(deps): update Next.js to version 15.5.3
 - Don't end subject line with a period
 - Use body to explain **what** and **why**, not **how**
 
-## 🤖 AI Tooling Guidelines
+## AI Tooling Guidelines
 
 DeyWeaver embraces AI assistance in development while maintaining human oversight and code quality.
 
 ### Acceptable AI Tool Usage
 
-**✅ Encouraged AI assistance:**
+**Encouraged AI assistance:**
 - **Code generation** for boilerplate and repetitive code
 - **Documentation writing** and improvement
 - **Bug investigation** and debugging assistance
@@ -284,7 +284,7 @@ DeyWeaver embraces AI assistance in development while maintaining human oversigh
 - **Test case generation** and edge case identification
 - **Refactoring suggestions** and optimization ideas
 
-**🤝 With Human Review:**
+**With Human Review:**
 - All AI-generated code must be **thoroughly reviewed** by the contributor
 - **Test AI-generated code** to ensure it works as expected
 - **Understand the code** before committing - don't blindly copy-paste
@@ -310,7 +310,7 @@ DeyWeaver embraces AI assistance in development while maintaining human oversigh
 - **Security**: Never commit sensitive data or credentials, even if suggested by AI
 - **Quality**: Maintain the same quality standards regardless of how code was generated
 
-## 🔄 Pull Request Process
+## Pull Request Process
 
 ### Pull Request Checklist
 
@@ -359,23 +359,23 @@ Add screenshots for UI changes
 3. **Feedback incorporation** - address any requested changes
 4. **Final approval** and merge by maintainers
 
-## 🏷️ Release Process
+##  Release Process
 
 Releases are handled by maintainers. Contributors should:
 - Focus on individual features and fixes
 - Follow semantic versioning principles in impact assessment
 - Document breaking changes clearly
 
-## 🤝 Getting Help
+##  Getting Help
 
 - **GitHub Issues**: For bugs and feature requests
 - **Discussions**: For questions and community chat
 - **Email**: Reach out to [aryanbrite@gmail.com](mailto:aryanbrite@gmail.com) for sensitive matters
 
-## 🙏 Recognition
+##  Recognition
 
 All contributors will be recognized in our releases and documentation. Thank you for helping make DeyWeaver better!
 
 ---
 
-*Happy coding! 🚀*
+*Happy coding!*
