@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "contributor-pages/**"
+      - "docs/**"
       - ".github/workflows/contributor-pages.yml"
   workflow_dispatch:
 
@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: contributor-pages
+          path: docs
 
   deploy:
     environment:
