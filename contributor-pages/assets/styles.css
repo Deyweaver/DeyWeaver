@@ -64,8 +64,8 @@ a {
 }
 
 .toc {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: var(--toc-top);
   left: calc((100vw - min(1200px, 100vw)) / 2 + 24px);
   width: var(--toc-width);
   max-height: calc(100vh - var(--toc-top) - 12px);
