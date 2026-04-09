@@ -31,6 +31,12 @@ import {
   type AnalyzeLifeBalanceOutput
 } from '@/ai/flows/analyze-life-balance';
 
+import {
+  summarizeEmails as summarizeEmailsFlow,
+  type SummarizeEmailsInput,
+  type SummarizeEmailsOutput,
+} from '@/ai/flows/summarize-emails';
+
 const LIFE_CATEGORY_DEFINITIONS: Array<{
   name: string;
   description: string;
@@ -221,6 +227,29 @@ export async function handleAnalyzeLifeBalance(input: AnalyzeLifeBalanceInput): 
   } catch (error) {
     console.error('Error in handleAnalyzeLifeBalance:', error);
     return buildLifeBalanceFallback(input);
+  }
+}
+
+export async function handleSummarizeEmails(input: SummarizeEmailsInput): Promise<SummarizeEmailsOutput> {
+  try {
+    return await summarizeEmailsFlow(input);
+  } catch (error) {
+    console.error('Error in handleSummarizeEmails:', error);
+    return {
+      summaries: input.emails.map((email) => ({
+        emailId: email.id,
+        bullets: [
+          `From ${email.from || 'Unknown sender'}`,
+          email.subject ? `Subject: ${email.subject}` : 'Unread email needs review.',
+          email.snippet || 'Open the email to review the details.',
+        ].filter((item) => item.trim().length > 0).slice(0, 3),
+        suggestedTaskTitle: email.subject ? `Review: ${email.subject}`.slice(0, 70) : 'Review unread email',
+        suggestedTaskDescription: (email.snippet || email.body || 'Review this unread email and capture any follow-up.')
+          .slice(0, 180),
+        suggestedCategory: 'Email',
+        priority: 'medium',
+      })),
+    };
   }
 }
 

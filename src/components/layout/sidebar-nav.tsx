@@ -8,6 +8,7 @@ import {
   CalendarPlus,
   ListChecks,
   CalendarDays, // ngl this is just here
+  Inbox,
   Settings,
   LifeBuoy,
   BarChart3, // yeah this thing does its thing
@@ -26,6 +27,7 @@ const mainNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/schedule/create', label: 'Create Schedule', icon: CalendarPlus },
   { href: '/tasks', label: 'My Tasks', icon: ListChecks },
+  { href: '/inbox', label: 'Inbox', icon: Inbox },
   { href: '/calendar', label: 'Calendar', icon: CalendarDays },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
 ];
