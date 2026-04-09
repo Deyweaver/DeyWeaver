@@ -22,7 +22,6 @@ export default function InboxPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Inbox"
         title="Inbox"
         description="Unread emails, task-ready."
         actions={
