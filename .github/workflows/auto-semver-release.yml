@@ -43,6 +43,14 @@ jobs:
           MINOR=$(echo $TAG | cut -d. -f2)
           PATCH=$(echo $TAG | cut -d. -f3)
           PATCH=$((PATCH + 1))
+          if [ "$PATCH" -gt 9 ]; then
+            PATCH=0
+            MINOR=$((MINOR + 1))
+          fi
+          if [ "$MINOR" -gt 9 ]; then
+            MINOR=0
+            MAJOR=$((MAJOR + 1))
+          fi
           NEW_VERSION="v$MAJOR.$MINOR.$PATCH"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
           echo "New version: $NEW_VERSION"
