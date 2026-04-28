@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: OpenRabbit
-        uses: aryan6673/openrabbit@vX.Y.Z   # pin to a tag for stability
+        uses: aryan6673/openrabbit@v0.2.8
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           bot_token: ${{ secrets.REVIEW_BOT_TOKEN }}   # optional
