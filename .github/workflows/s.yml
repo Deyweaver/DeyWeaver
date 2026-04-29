@@ -17,6 +17,7 @@ jobs:
         uses: aryan6673/openrabbit@v0.3.1
         with:
           llm_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           # Optional:
           # github_token: ${{ secrets.GITHUB_TOKEN }}
           # bot_token: ${{ secrets.MY_BOT_PAT }}
