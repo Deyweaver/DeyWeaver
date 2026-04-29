@@ -1,0 +1,22 @@
+# .github/workflows/openrabbit-review.yml
+name: Open-Rabbit PR review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Open-Rabbit
+        uses: aryan6673/openrabbit@v0.3.1
+        with:
+          llm_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+          # Optional:
+          # github_token: ${{ secrets.GITHUB_TOKEN }}
+          # bot_token: ${{ secrets.MY_BOT_PAT }}
