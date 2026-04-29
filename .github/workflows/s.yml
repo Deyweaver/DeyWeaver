@@ -1,7 +1,6 @@
-# .github/workflows/openrabbit-review.yml
 name: Open-Rabbit PR review
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -16,8 +15,6 @@ jobs:
       - name: Open-Rabbit
         uses: aryan6673/openrabbit@v0.3.2
         with:
-          llm_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Optional:
-          # github_token: ${{ secrets.GITHUB_TOKEN }}
-          # bot_token: ${{ secrets.MY_BOT_PAT }}
+          llm_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+          llm_model: openrouter/free
