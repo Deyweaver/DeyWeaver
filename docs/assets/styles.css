@@ -17,23 +17,7 @@
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  background: radial-gradient(circle at 5% 0%, #ffffff 0, #f7f7f5 45%, #f1f1ee 100%);
-  color: var(--text);
-  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.6;
-}
-
-a {
-  color: var(--accent);
-}
-
-.site {
-  max-width: 1200px;
+  
   margin: 0 auto;
   padding: 24px;
   width: 100%;
