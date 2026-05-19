@@ -116,4 +116,35 @@ This project is made possible by the generous funding and support from these ama
 * **Notion:** We thank Notion for their guidance, helping us build a simpler planner experience, and for generously providing **free Notion Premium accounts to all the maintainers**.
 
 ---
+<div align="center">
+
 ![version](https://img.shields.io/badge/version-v1.3.0-orange)
+
+![MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-blue)
+![Non Profit](https://img.shields.io/badge/Non--Profit-Project-orange)
+![Open Collective](https://img.shields.io/badge/Open%20Collective-Supported-7B3FF2?logo=open-collective)
+
+<br/>
+
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js)
+
+<br/>
+
+[![Deploy on Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/deyweaver/deyweaver)
+
+<br/>
+
+![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
+
+</div>
+<a href="https://www.producthunt.com/products/deyweaver" target="_blank">
+  <img
+    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=deyweaver"
+    alt="DeyWeaver on Product Hunt"
+    style="width: 250px; height: 54px;"
+    width="250"
+    height="54"
+  />
+</a>
