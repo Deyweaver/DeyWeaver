@@ -118,7 +118,7 @@ This project is made possible by the generous funding and support from these ama
 ---
 <div align="center">
 
-![version](https://img.shields.io/badge/version-v1.3.0-orange)
+![version](https://img.shields.io/badge/version-v1.3.1-orange)
 
 ![MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-blue)
