@@ -1,4 +1,16 @@
-![dey Weaver Demo](https://raw.githubusercontent.com/aryan6673/deyWeaver/master/public/demo34.gif)
+<p align="center">
+  <img src="https://cdn.hackclub.com/019e41db-a305-7bd5-a68d-157108f0abb1/download%20(1).gif" width="128" height="128" alt="OpenRabbit icon">
+</p>
+
+<h1 align="center">Deyweaver</h1>
+
+<p align="center">
+  DeyWeaver is a free, open-source AI task planner that auto-schedules your day.
+</p>
+
+
+
+---
 
 DeyWeaver is an AI-integrated productivity tool that helps users organize their day, prioritize tasks, and optimize time management through intelligent scheduling. Powered by AI algorithms, it dynamically suggests daily plans based on task urgency, deadlines, estimated durations, and user preferences. Ideal for students, professionals, and productivity nerds.
 
@@ -118,24 +130,14 @@ This project is made possible by the generous funding and support from these ama
 ---
 <div align="center">
 
-![version](https://img.shields.io/badge/version-v1.3.1-orange)
-
+![version](https://img.shields.io/badge/version-v1.3.0-orange)
 ![MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-blue)
 ![Non Profit](https://img.shields.io/badge/Non--Profit-Project-orange)
 ![Open Collective](https://img.shields.io/badge/Open%20Collective-Supported-7B3FF2?logo=open-collective)
-
-<br/>
-
 ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js)
-
-<br/>
-
 [![Deploy on Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/deyweaver/deyweaver)
-
-<br/>
-
 ![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
 
 </div>
