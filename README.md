@@ -6,6 +6,7 @@
 
 <p align="center">
   DeyWeaver is a free, open-source AI task planner that auto-schedules your day.
+  (Project under maintenance. We are out of resources to run Deyweaver for free. Please consider donating)
 </p>
 
 
