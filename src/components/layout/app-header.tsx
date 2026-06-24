@@ -41,7 +41,7 @@ export function AppHeader() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
-            <Logo />
+            <Logo className="text-primary" />
           </Link>
         </div>
         <SidebarTrigger className="md:hidden" />

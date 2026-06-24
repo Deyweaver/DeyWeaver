@@ -10,12 +10,6 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       aria-label="Dey Weaver Logo"
       {...props}
     >
-      <defs>
-        <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#d946ef" />
-        </linearGradient>
-      </defs>
       <rect width="200" height="50" fill="transparent" />
       <text
         x="10"
@@ -23,7 +17,7 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
         fontFamily="sans-serif"
         fontSize="28"
         fontWeight="bold"
-        fill="url(#neonGradient)"
+        fill="currentColor"
       >
         Dey Weaver
       </text>
