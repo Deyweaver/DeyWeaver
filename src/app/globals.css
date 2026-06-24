@@ -41,13 +41,13 @@
     --popover: 245 35% 6%;
     --popover-foreground: 240 20% 98%;
     --primary: 275 90% 65%; /* Vibrant Neon Purple */
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 245 40% 4%; /* Dark text for high contrast on neon background */
     --secondary: 310 90% 60%; /* Electric Magenta */
-    --secondary-foreground: 0 0% 100%;
+    --secondary-foreground: 245 40% 4%;
     --muted: 245 30% 12%;
     --muted-foreground: 240 10% 65%;
     --accent: 275 90% 65%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 245 40% 4%;
     --destructive: 0 75% 55%;
     --destructive-foreground: 210 40% 98%;
     --border: 245 30% 15%; /* Subtle border */

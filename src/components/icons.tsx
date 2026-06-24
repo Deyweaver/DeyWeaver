@@ -11,19 +11,19 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: "hsl(var(--accent))", stopOpacity: 1 }} />
+        <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#d946ef" />
         </linearGradient>
       </defs>
       <rect width="200" height="50" fill="transparent" />
       <text
         x="10"
         y="35"
-        fontFamily="var(--font-geist-sans), sans-serif"
+        fontFamily="sans-serif"
         fontSize="28"
         fontWeight="bold"
-        fill="url(#goldGradient)"
+        fill="url(#neonGradient)"
       >
         Dey Weaver
       </text>
