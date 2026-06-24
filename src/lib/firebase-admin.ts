@@ -1,9 +1,12 @@
+import { getApps, initializeApp, applicationDefault } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
 import * as admin from 'firebase-admin';
 
-if (!admin.apps.length) {
+if (!getApps().length) {
   try {
-    admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
+    initializeApp({
+      credential: applicationDefault(),
       projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'aln-communitty-hub',
     });
   } catch (error) {
@@ -11,5 +14,6 @@ if (!admin.apps.length) {
   }
 }
 
-export const adminAuth = admin.auth();
-export const adminDb = admin.firestore();
+export const adminAuth = getAuth();
+export const adminDb = getFirestore();
+export { admin };
