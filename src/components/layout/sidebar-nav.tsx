@@ -52,7 +52,7 @@ export function SidebarNav() {
           <SidebarMenuButton
             isActive={pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))}
             tooltip={item.label}
-            className="w-full justify-start rounded-xl border border-transparent transition-colors hover:bg-secondary hover:text-foreground data-[active=true]:border-primary data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+            className="w-full justify-start rounded-xl border border-transparent transition-all duration-300 hover:bg-primary/20 hover:text-primary hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] data-[active=true]:border-primary/60 data-[active=true]:bg-primary/20 data-[active=true]:text-primary data-[active=true]:shadow-[inset_0_0_15px_rgba(168,85,247,0.3),0_0_20px_rgba(168,85,247,0.2)]"
           >
             <item.icon className="h-5 w-5" />
             <span>{item.label}</span>
@@ -73,7 +73,7 @@ export function SidebarNav() {
                 <SidebarMenuButton
                   isActive={pathname.startsWith('/admin')}
                   tooltip="Admin Dashboard"
-                  className="w-full justify-start rounded-xl border border-transparent transition-colors hover:bg-secondary hover:text-foreground data-[active=true]:border-primary data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                  className="w-full justify-start rounded-xl border border-transparent transition-all duration-300 hover:bg-primary/20 hover:text-primary hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] data-[active=true]:border-primary/60 data-[active=true]:bg-primary/20 data-[active=true]:text-primary data-[active=true]:shadow-[inset_0_0_15px_rgba(168,85,247,0.3),0_0_20px_rgba(168,85,247,0.2)]"
                 >
                   <ShieldCheck className="h-5 w-5" />
                   <span>Admin Dashboard</span>
