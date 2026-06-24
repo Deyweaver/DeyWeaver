@@ -1,0 +1,29 @@
+{"users": [
+{
+  "localId": "WAz4StAvGXcLGThc5h9jcWe71w43",
+  "email": "iamsonotserious@gmail.com",
+  "emailVerified": false,
+  "passwordHash": "bL9FM5uR4GHT27vg5swUWHbKdPZIi3XvkPiEjKRxf0p1IGxRT6DohTuAAl7plaLC5B2RE1GBghU9IsBSYecH8Q==",
+  "salt": "5Rvqb2w65mk/fw==",
+  "createdAt": "1782171550759",
+  "disabled": false,
+  "providerUserInfo": []
+},
+{
+  "localId": "id79xNBPPgahNb9lhIYfLpMfZgI3",
+  "email": "jdmiami@gmail.com",
+  "emailVerified": true,
+  "displayName": "Johnny Fama",
+  "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIMXQsnDMt1PvWIW40vb7qeHOToTtWJXcs_6y68M_I52KllSVnZkw=s96-c",
+  "lastSignedInAt": "1782311401835",
+  "createdAt": "1782311401835",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "116941476633122457800",
+      "email": "jdmiami@gmail.com",
+      "displayName": "Johnny Fama",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIMXQsnDMt1PvWIW40vb7qeHOToTtWJXcs_6y68M_I52KllSVnZkw=s96-c"
+    }
+  ]
+}]}

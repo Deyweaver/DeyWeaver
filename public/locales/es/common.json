@@ -1,0 +1,52 @@
+{
+  "appName": "DeyWeaver",
+  "nav": {
+    "dashboard": "Panel de control",
+    "tasks": "Tareas",
+    "schedule": "Horario",
+    "analytics": "Analítica",
+    "settings": "Configuración"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "success": "Éxito",
+    "confirm": "Confirmar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar"
+  },
+  "tasks": {
+    "title": "Tareas",
+    "addTask": "Agregar tarea",
+    "noTasks": "No hay tareas aún",
+    "status": {
+      "todo": "Por hacer",
+      "inprogress": "En progreso",
+      "done": "Hecho",
+      "blocked": "Bloqueado"
+    },
+    "priority": {
+      "low": "Baja",
+      "medium": "Media",
+      "high": "Alta"
+    }
+  },
+  "schedule": {
+    "title": "Horario",
+    "generate": "Generar horario",
+    "today": "Hoy"
+  },
+  "analytics": {
+    "title": "Analítica",
+    "efficiency": "Puntuación de eficiencia",
+    "burnout": "Riesgo de agotamiento",
+    "timeUsage": "Uso del tiempo"
+  }
+}

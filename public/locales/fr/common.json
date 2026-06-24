@@ -1,0 +1,52 @@
+{
+  "appName": "DeyWeaver",
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "tasks": "Tâches",
+    "schedule": "Planning",
+    "analytics": "Analytique",
+    "settings": "Paramètres"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "close": "Fermer",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Succès",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "submit": "Soumettre"
+  },
+  "tasks": {
+    "title": "Tâches",
+    "addTask": "Ajouter une tâche",
+    "noTasks": "Aucune tâche pour l'instant",
+    "status": {
+      "todo": "À faire",
+      "inprogress": "En cours",
+      "done": "Terminé",
+      "blocked": "Bloqué"
+    },
+    "priority": {
+      "low": "Faible",
+      "medium": "Moyen",
+      "high": "Élevé"
+    }
+  },
+  "schedule": {
+    "title": "Planning",
+    "generate": "Générer un planning",
+    "today": "Aujourd'hui"
+  },
+  "analytics": {
+    "title": "Analytique",
+    "efficiency": "Score d'efficacité",
+    "burnout": "Risque d'épuisement",
+    "timeUsage": "Utilisation du temps"
+  }
+}

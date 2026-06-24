@@ -365,9 +365,10 @@ export function GmailInboxAssistant({ onHeaderStateChange }: GmailInboxAssistant
     }
 
     let isActive = true;
+    const safeUserId: string = userId;
 
     async function loadIntroPreference() {
-      const localSeen = localStorage.getItem(getInboxIntroSeenStorageKey(userId)) === 'true';
+      const localSeen = localStorage.getItem(getInboxIntroSeenStorageKey(safeUserId)) === 'true';
       if (localSeen) {
         if (isActive) {
           setShowIntroDialog(false);
@@ -376,7 +377,7 @@ export function GmailInboxAssistant({ onHeaderStateChange }: GmailInboxAssistant
         return;
       }
 
-      const settings = await loadUserSettingsFromDb(userId);
+      const settings = await loadUserSettingsFromDb(safeUserId);
       if (!isActive) {
         return;
       }
@@ -386,7 +387,7 @@ export function GmailInboxAssistant({ onHeaderStateChange }: GmailInboxAssistant
       setIsIntroPreferenceLoaded(true);
 
       if (hasSeenIntro) {
-        localStorage.setItem(getInboxIntroSeenStorageKey(userId), 'true');
+        localStorage.setItem(getInboxIntroSeenStorageKey(safeUserId), 'true');
       }
     }
 

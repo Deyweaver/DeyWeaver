@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    match /userPreferences/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    match /users/{userId} {
+      allow read: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow create: if request.auth != null && request.auth.uid == userId && request.resource.data.get('isAdmin', false) == false;
+      allow update: if request.auth != null && (
+        (request.auth.uid == userId && request.resource.data.get('isAdmin', resource.data.get('isAdmin', false)) == resource.data.get('isAdmin', false)) 
+        || isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /analytics/{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    match /events/{eventId} {
+      allow read: if request.auth != null && (isAdmin() || resource.data.isGlobal == true || resource.data.userId == request.auth.uid);
+      allow create: if request.auth != null && (isAdmin() || (request.resource.data.userId == request.auth.uid && request.resource.data.isGlobal == false));
+      allow update: if request.auth != null && (isAdmin() || (resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid && request.resource.data.isGlobal == false));
+      allow delete: if request.auth != null && (isAdmin() || resource.data.userId == request.auth.uid);
+    }
+
+    match /tasks/{taskId} {
+      allow read: if request.auth != null && (isAdmin() || resource.data.isGlobal == true || resource.data.userId == request.auth.uid || resource.data.userId == null);
+      allow create: if request.auth != null && (isAdmin() || (request.resource.data.userId == request.auth.uid && request.resource.data.isGlobal == false));
+      allow update: if request.auth != null && (isAdmin() || (resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid && request.resource.data.isGlobal == false));
+      allow delete: if request.auth != null && (isAdmin() || resource.data.userId == request.auth.uid);
+    }
+
+    match /announcements/{announcementId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+  }
+}

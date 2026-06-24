@@ -1,0 +1,52 @@
+{
+  "appName": "DeyWeaver",
+  "nav": {
+    "dashboard": "Dashboard",
+    "tasks": "Tasks",
+    "schedule": "Schedule",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "addTask": "Add Task",
+    "noTasks": "No tasks yet",
+    "status": {
+      "todo": "To Do",
+      "inprogress": "In Progress",
+      "done": "Done",
+      "blocked": "Blocked"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    }
+  },
+  "schedule": {
+    "title": "Schedule",
+    "generate": "Generate Schedule",
+    "today": "Today"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "efficiency": "Efficiency Score",
+    "burnout": "Burnout Risk",
+    "timeUsage": "Time Usage"
+  }
+}

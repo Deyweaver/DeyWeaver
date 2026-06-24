@@ -1,12 +1,20 @@
 
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+import { Space_Grotesk, Syne } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import ClientProviders from '@/components/layout/client-providers';
 import { AuthProvider } from '@/components/auth/auth-provider';
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-sans',
+});
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-heading',
+});
 
 export const metadata: Metadata = {
   title: 'Dey Weaver',
@@ -24,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} font-sans antialiased`}
+        className={`${spaceGrotesk.variable} ${syne.variable} font-sans antialiased`}
       >
         <ClientProviders>
           <AuthProvider>

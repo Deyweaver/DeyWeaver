@@ -83,14 +83,14 @@ const predictBurnoutFlow = ai.defineFlow(
   async (input) => {
     if (input.tasks.length === 0) {
       return {
-        riskLevel: 'low',
+        riskLevel: 'low' as const,
         progressValue: 10,
         message: "No tasks to analyze. Enjoy your free time, but remember to plan ahead!",
       };
     }
     const {output} = await predictBurnoutPrompt(input);
     if (!output) {
-      return { riskLevel: 'medium', progressValue: 50, message: "Could not analyze burnout risk at this time. Please ensure you are managing your workload effectively.", contributingFactors: ["AI analysis unavailable"] };
+      return { riskLevel: 'medium' as const, progressValue: 50, message: "Could not analyze burnout risk at this time. Please ensure you are managing your workload effectively.", contributingFactors: ["AI analysis unavailable"] };
     }
     return output;
   }

@@ -1,0 +1,52 @@
+{
+  "appName": "DeyWeaver",
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "tasks": "タスク",
+    "schedule": "スケジュール",
+    "analytics": "分析",
+    "settings": "設定"
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "add": "追加",
+    "close": "閉じる",
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "success": "成功",
+    "confirm": "確認",
+    "back": "戻る",
+    "next": "次へ",
+    "submit": "送信"
+  },
+  "tasks": {
+    "title": "タスク",
+    "addTask": "タスクを追加",
+    "noTasks": "タスクはまだありません",
+    "status": {
+      "todo": "未着手",
+      "inprogress": "進行中",
+      "done": "完了",
+      "blocked": "ブロック中"
+    },
+    "priority": {
+      "low": "低",
+      "medium": "中",
+      "high": "高"
+    }
+  },
+  "schedule": {
+    "title": "スケジュール",
+    "generate": "スケジュールを生成",
+    "today": "今日"
+  },
+  "analytics": {
+    "title": "分析",
+    "efficiency": "効率スコア",
+    "burnout": "燃え尽きリスク",
+    "timeUsage": "時間使用状況"
+  }
+}

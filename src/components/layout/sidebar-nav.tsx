@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/hooks/use-auth';
 import {
   LayoutDashboard,
   CalendarPlus,
@@ -13,6 +14,7 @@ import {
   LifeBuoy,
   BarChart3, // yeah this thing does its thing
   MessagesSquare, // this part be doing work fr
+  ShieldCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -40,6 +42,7 @@ const secondaryNavItems = [
 
 export function SidebarNav() {
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const renderNavItems = (items: typeof mainNavItems) => // we vibin this works
     items.map((item) => (
@@ -62,7 +65,23 @@ export function SidebarNav() {
     <nav className="flex flex-col h-full">
       <SidebarGroup className="p-2">
         <SidebarGroupLabel>Menu</SidebarGroupLabel>
-        <SidebarMenu>{renderNavItems(mainNavItems)}</SidebarMenu>
+        <SidebarMenu>
+          {renderNavItems(mainNavItems)}
+          {user?.isAdmin && (
+            <SidebarMenuItem>
+              <Link href="/admin">
+                <SidebarMenuButton
+                  isActive={pathname.startsWith('/admin')}
+                  tooltip="Admin Dashboard"
+                  className="w-full justify-start rounded-xl border border-transparent transition-colors hover:bg-secondary hover:text-foreground data-[active=true]:border-primary data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                >
+                  <ShieldCheck className="h-5 w-5" />
+                  <span>Admin Dashboard</span>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          )}
+        </SidebarMenu>
       </SidebarGroup>
       <div className="mt-auto">
         <SidebarGroup className="p-2">
