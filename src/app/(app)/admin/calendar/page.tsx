@@ -99,7 +99,7 @@ export default function AdminCalendarPage() {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <CardTitle>Calendar & Events</CardTitle>
           <CardDescription>

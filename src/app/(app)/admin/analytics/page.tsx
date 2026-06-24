@@ -55,7 +55,7 @@ export default function AdminAnalyticsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Platform Analytics</h2>
           <p className="text-muted-foreground">High-level overview of Dey Weaver platform metrics.</p>
