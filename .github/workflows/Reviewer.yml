@@ -18,6 +18,6 @@ jobs:
           llm_provider: openrouter
           llm_api_url: https://openrouter.ai/api/v1
           llm_api_key: ${{ secrets.LLM_API_KEY }}
-          llm_model: openrouter/free
+          llm_model: meta-llama/llama-3-8b-instruct:free
           review_mode: both
           tone_mode: balanced
