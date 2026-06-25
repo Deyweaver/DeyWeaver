@@ -18,14 +18,14 @@ export function AppSidebar() {
   const { user, logout } = useAuth();
 
   return (
-    <Sidebar collapsible="icon" side="left" variant="sidebar" className="border-r">
+    <Sidebar collapsible="icon" side="left" variant="sidebar" className="border-r border-primary/20 shadow-[4px_0_24px_rgba(168,85,247,0.1)] bg-background/60 backdrop-blur-xl">
       <SidebarHeader className="p-4 md:p-2 items-center md:bg-transparent">
         <Link href="/dashboard" className="block md:hidden group-data-[collapsible=icon]:block">
-          <Logo className="h-8 w-auto fill-primary" />
+          <Logo className="h-8 w-auto text-primary" />
           <span className="sr-only">Dey Weaver Home</span>
         </Link>
         <Link href="/dashboard" className="hidden md:block group-data-[collapsible=icon]:hidden">
-          <Logo className="h-8 w-auto" />
+          <Logo className="h-8 w-auto text-primary" />
         </Link>
       </SidebarHeader>
       <SidebarContent className="flex-1 p-0">

@@ -15,6 +15,8 @@ import {
   type DashboardWidgetPreferences,
 } from '@/lib/dashboard-preferences';
 
+import { AnnouncementsWidget } from '@/components/dashboard/announcements-widget';
+
 export default function DashboardPage() {
   const { user } = useAuth();
   const firstName = user?.displayName?.trim().split(/\s+/)[0];
@@ -49,6 +51,8 @@ export default function DashboardPage() {
         title={`Welcome back ${greetingName}`}
         description="Live updates and quick actions for your day."
       />
+
+      <AnnouncementsWidget />
 
       {hasTopRow && (
         <div className="grid gap-6 md:grid-cols-2">

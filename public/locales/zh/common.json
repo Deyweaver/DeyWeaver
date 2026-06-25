@@ -1,0 +1,52 @@
+{
+  "appName": "DeyWeaver",
+  "nav": {
+    "dashboard": "仪表板",
+    "tasks": "任务",
+    "schedule": "日程",
+    "analytics": "分析",
+    "settings": "设置"
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "add": "添加",
+    "close": "关闭",
+    "loading": "加载中...",
+    "error": "发生错误",
+    "success": "成功",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "submit": "提交"
+  },
+  "tasks": {
+    "title": "任务",
+    "addTask": "添加任务",
+    "noTasks": "暂无任务",
+    "status": {
+      "todo": "待办",
+      "inprogress": "进行中",
+      "done": "已完成",
+      "blocked": "已阻塞"
+    },
+    "priority": {
+      "low": "低",
+      "medium": "中",
+      "high": "高"
+    }
+  },
+  "schedule": {
+    "title": "日程",
+    "generate": "生成日程",
+    "today": "今天"
+  },
+  "analytics": {
+    "title": "分析",
+    "efficiency": "效率得分",
+    "burnout": "倦怠风险",
+    "timeUsage": "时间使用"
+  }
+}

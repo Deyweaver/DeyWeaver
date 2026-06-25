@@ -14,6 +14,7 @@ import {
   type User as FirebaseUserType // quick thing here dont mind
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { syncUserToDb } from '@/lib/user-db';
 import { IconSpinner } from '@/components/icons';
 import type { FirebaseUser } from '@/types';
 
@@ -36,13 +37,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUserType | null) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUserType | null) => {
       if (firebaseUser) {
+        const userRecord = await syncUserToDb(firebaseUser);
+        
         setUser({
           uid: firebaseUser.uid,
           email: firebaseUser.email,
           displayName: firebaseUser.displayName,
           photoURL: firebaseUser.photoURL,
+          isAdmin: userRecord?.isAdmin ?? false,
         });
       } else {
         setUser(null);
@@ -53,12 +57,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  const handleAuthSuccess = (firebaseUser: FirebaseUserType) => {
+  const handleAuthSuccess = async (firebaseUser: FirebaseUserType) => {
+    const userRecord = await syncUserToDb(firebaseUser);
     setUser({
       uid: firebaseUser.uid,
       email: firebaseUser.email,
       displayName: firebaseUser.displayName,
       photoURL: firebaseUser.photoURL,
+      isAdmin: userRecord?.isAdmin ?? false,
     });
     router.push('/dashboard');
   };

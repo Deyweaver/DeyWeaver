@@ -37,11 +37,11 @@ export function AppHeader() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-primary/20 bg-background/40 backdrop-blur-xl supports-[backdrop-filter]:bg-background/40 shadow-[0_4px_20px_rgba(168,85,247,0.15)]">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
-            <Logo />
+            <Logo className="text-primary" />
           </Link>
         </div>
         <SidebarTrigger className="md:hidden" />

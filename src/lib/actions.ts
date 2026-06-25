@@ -37,6 +37,18 @@ import {
   type SummarizeEmailsOutput,
 } from '@/ai/flows/summarize-emails';
 
+import {
+  intelligentTaskBreakdown as intelligentTaskBreakdownFlow,
+  type IntelligentTaskBreakdownInput,
+  type IntelligentTaskBreakdownOutput,
+} from '@/ai/flows/intelligent-task-breakdown';
+
+import {
+  speechMeetingAware as speechMeetingAwareFlow,
+  type SpeechMeetingAwareInput,
+  type SpeechMeetingAwareOutput,
+} from '@/ai/flows/speech-meeting-aware';
+
 const LIFE_CATEGORY_DEFINITIONS: Array<{
   name: string;
   description: string;
@@ -543,4 +555,20 @@ export async function handleFetchTopNews(): Promise<TopNewsResult> {
   }
 }
 
-    
+export async function handleIntelligentTaskBreakdown(input: IntelligentTaskBreakdownInput): Promise<IntelligentTaskBreakdownOutput> {
+  try {
+    return await intelligentTaskBreakdownFlow(input);
+  } catch (error) {
+    console.error('Error in handleIntelligentTaskBreakdown:', error);
+    throw new Error('Failed to break down task. Please try again.');
+  }
+}
+
+export async function handleSpeechMeetingAware(input: SpeechMeetingAwareInput): Promise<SpeechMeetingAwareOutput> {
+  try {
+    return await speechMeetingAwareFlow(input);
+  } catch (error) {
+    console.error('Error in handleSpeechMeetingAware:', error);
+    throw new Error('Failed to prepare meeting schedule. Please try again.');
+  }
+}

@@ -1,6 +1,7 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ['@opentelemetry/sdk-node', 'handlebars', 'genkit', '@genkit-ai/core'],
   /* idk this whole part works lol */
   typescript: {
     ignoreBuildErrors: true,

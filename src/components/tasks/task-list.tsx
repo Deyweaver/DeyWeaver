@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -10,19 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Search, Filter, ListChecksIcon } from 'lucide-react'; // yeah this thing does its thing
+import { PlusCircle, Search, Filter, ListChecksIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { getTasksFromLocalStorage, saveTasksToLocalStorage } from '@/lib/task-storage';
-import { Card, CardContent } from '@/components/ui/card'; // this part be doing work fr
-
-// Sample initial tasks for demonstration - will be overridden by localStorage if present
-const fallbackInitialTasks: Task[] = [
-  { id: 'fallback-1', name: 'Welcome to Dey Weaver!', description: 'Add your first task using the "Add Task" button.', dueDate: new Date().toISOString(), priority: 'medium', status: 'todo', category: 'General' },
-];
+import { Card, CardContent } from '@/components/ui/card';
+import { useAuth } from '@/hooks/use-auth';
+import { getUserTasks, createTask, updateTask, deleteTask } from '@/lib/tasks-db';
 
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false); // quick thing here dont mind
+  const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'all'>('all');
   const [priorityFilter, setPriorityFilter] = useState<'all' | 'low' | 'medium' | 'high'>('all');
@@ -32,36 +27,74 @@ export function TaskList() {
   const [newTask, setNewTask] = useState<Partial<Task>>({ name: '', description: '', priority: 'medium', status: 'todo' });
 
   const { toast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
-    const loadedTasks = getTasksFromLocalStorage();
-    setTasks(loadedTasks.length > 0 ? loadedTasks : fallbackInitialTasks);
-    setIsLoaded(true);
-  }, []);
-
-  // this part be doing work fr
-  useEffect(() => {
-    if (isLoaded) { // this part be doing work fr
-      saveTasksToLocalStorage(tasks);
+    async function loadTasks() {
+      if (!user) {
+        setIsLoaded(true);
+        return;
+      }
+      try {
+        const loadedTasks = await getUserTasks(user.uid);
+        // Sort tasks: global first, then by date created/due
+        loadedTasks.sort((a, b) => {
+          if (a.isGlobal && !b.isGlobal) return -1;
+          if (!a.isGlobal && b.isGlobal) return 1;
+          return 0;
+        });
+        setTasks(loadedTasks);
+      } catch (error) {
+        console.error("Failed to load tasks", error);
+        toast({ variant: 'destructive', title: 'Error', description: 'Failed to load tasks from database.' });
+      } finally {
+        setIsLoaded(true);
+      }
     }
-  }, [tasks, isLoaded]);
+    loadTasks();
+  }, [user, toast]);
 
-
-  const handleStatusChange = (taskId: string, status: TaskStatus) => {
+  const handleStatusChange = async (taskId: string, status: TaskStatus) => {
+    const originalTasks = [...tasks];
     setTasks(prevTasks =>
       prevTasks.map(task =>
         task.id === taskId ? { ...task, status } : task
       )
     );
-    toast({ title: "Task Updated", description: `Task status changed to ${status}.` });
+    try {
+      await updateTask(taskId, { status });
+      toast({ title: "Task Updated", description: `Task status changed to ${status}.` });
+    } catch (error) {
+      console.error(error);
+      setTasks(originalTasks);
+      toast({ variant: 'destructive', title: "Error", description: "Failed to update task status." });
+    }
   };
 
-  const handleDeleteTask = (taskId: string) => {
+  const handleDeleteTask = async (taskId: string) => {
+    const taskToDelete = tasks.find(t => t.id === taskId);
+    if (taskToDelete?.isGlobal && !user?.isAdmin) {
+      toast({ variant: 'destructive', title: "Permission Denied", description: "You cannot delete a global task." });
+      return;
+    }
+
+    const originalTasks = [...tasks];
     setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
-    toast({ title: "Task Deleted", description: "The task has been removed." });
+    try {
+      await deleteTask(taskId);
+      toast({ title: "Task Deleted", description: "The task has been removed." });
+    } catch (error) {
+      console.error(error);
+      setTasks(originalTasks);
+      toast({ variant: 'destructive', title: "Error", description: "Failed to delete task." });
+    }
   };
 
   const handleEditTask = (task: Task) => {
+    if (task.isGlobal && !user?.isAdmin) {
+      toast({ variant: 'destructive', title: "Permission Denied", description: "You cannot edit a global task." });
+      return;
+    }
     setEditingTask(task);
     setNewTask(task);
     setIsModalOpen(true);
@@ -73,28 +106,42 @@ export function TaskList() {
     setIsModalOpen(true);
   };
 
-  const handleSaveTask = () => {
+  const handleSaveTask = async () => {
     if (!newTask.name?.trim()) {
       toast({ variant: 'destructive', title: 'Error', description: 'Task name is required.' });
       return;
     }
 
-    if (editingTask) {
-      setTasks(prevTasks => prevTasks.map(t => t.id === editingTask.id ? { ...t, ...newTask } as Task : t));
-      toast({ title: 'Task Updated', description: 'Your task has been successfully updated.'});
-    } else {
-      const taskToAdd: Task = {
-        id: String(Date.now()), // ngl this is just here
-        ...newTask,
-        name: newTask.name.trim(),
-        status: newTask.status || 'todo',
-      };
-      setTasks(prevTasks => [taskToAdd, ...prevTasks]);
-      toast({ title: 'Task Added', description: 'New task successfully created.'});
+    if (!user) {
+      toast({ variant: 'destructive', title: 'Error', description: 'You must be logged in.' });
+      return;
     }
-    setIsModalOpen(false);
-    setNewTask({ name: '', description: '', priority: 'medium', status: 'todo' }); // quick thing here dont mind
-    setEditingTask(null);
+
+    try {
+      if (editingTask) {
+        await updateTask(editingTask.id, newTask);
+        setTasks(prevTasks => prevTasks.map(t => t.id === editingTask.id ? { ...t, ...newTask } as Task : t));
+        toast({ title: 'Task Updated', description: 'Your task has been successfully updated.'});
+      } else {
+        const taskData = {
+          ...newTask,
+          name: newTask.name.trim(),
+          status: newTask.status || 'todo',
+          userId: user.uid,
+          isGlobal: false
+        };
+        const newId = await createTask(taskData as any); // Cast as any to bypass Omit<Task, 'id'> strictness briefly
+        const taskToAdd: Task = { id: newId, ...taskData } as Task;
+        setTasks(prevTasks => [taskToAdd, ...prevTasks]);
+        toast({ title: 'Task Added', description: 'New task successfully created.'});
+      }
+      setIsModalOpen(false);
+      setNewTask({ name: '', description: '', priority: 'medium', status: 'todo' });
+      setEditingTask(null);
+    } catch (error) {
+      console.error(error);
+      toast({ variant: 'destructive', title: 'Error', description: 'Failed to save task.' });
+    }
   };
 
   const filteredTasks = tasks.filter(task => {
@@ -106,7 +153,6 @@ export function TaskList() {
   });
 
   if (!isLoaded) {
-    // idk this does stuff lol
     return <div className="text-center p-8">Loading tasks...</div>;
   }
 

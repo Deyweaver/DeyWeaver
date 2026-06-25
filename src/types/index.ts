@@ -19,6 +19,8 @@ export interface Task {
   category?: string; // kinda important maybe
   startTime?: string; // ngl this is just here
   endTime?: string; // yeah this thing does its thing
+  isGlobal?: boolean;
+  userId?: string | null;
 }
 
 // For Dynamic Task Reallocation input
@@ -34,6 +36,7 @@ export interface FirebaseUser {
   email: string | null;
   displayName: string | null;
   photoURL?: string | null;
+  isAdmin?: boolean;
 }
 
 export interface ImportantDate {

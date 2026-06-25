@@ -99,6 +99,11 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
               <span>{formattedDueDate}</span>
             </div>
           )}
+          {task.isGlobal && (
+            <Badge variant="default" className="bg-primary/20 text-primary hover:bg-primary/30 border-none">
+              Global
+            </Badge>
+          )}
           {task.category && (
              <Badge variant="outline" className="text-xs">{task.category}</Badge>
           )}
